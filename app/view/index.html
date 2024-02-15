@@ -1,0 +1,9 @@
+<nav>
+  <a>
+    <h1>Автомастерская</h1>
+  </a>
+  <a href="{{ $link_login }}">Личный кабинет</a>
+  @if($is_logged_in)
+  <a href="{{ $link_logout }}">Выйти</a>
+  @endif
+</nav>

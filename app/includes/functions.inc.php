@@ -22,12 +22,32 @@ function get_message()
     }
 }
 
-function render()
+function check_login(): bool {
+    return isset($_SESSION['id']);
+}
+
+function redirect(string $url): void
 {
-    $template_dir = 'templates/';
+    header("Location: {$url}");
+    die();
+}
 
-    $title = 'Car Repair Shop';
+function render(string $view_name, array $data = []): void
+{
+    $view_dir = 'view/';
+    extract($data);
+    $content = file_get_contents($view_dir . $view_name);
 
-    require $template_dir . 'header.php';
-    require $template_dir . 'footer.php';
+    $content = preg_replace('/{{\s*(.+?)\s*}}/', '<?php echo $1; ?>', $content);
+
+    $content = preg_replace('/@if\(\s*(.+?)\s*\)/', '<?php if($1): ?>', $content);
+    $content = str_replace('@endif', '<?php endif; ?>', $content);
+
+    $content = preg_replace('/@foreach\(\s*(.+?)\s*\)/', '<?php foreach($1)', $content);
+    $content = str_replace('@endforeach', '<php endforeach; ?>', $content);
+
+    ob_start();
+    eval('?>'.$content);
+    $final = ob_get_clean();
+    echo $final;
 }
