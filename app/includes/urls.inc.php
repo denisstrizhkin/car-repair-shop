@@ -2,12 +2,12 @@
 
 class URLS {
     const ROOT = '/';
-    const CONTROLLER = URLS::ROOT . '/controller/';
+    const CONTROLLER = URLS::ROOT . 'controller/';
 
     const LOGIN = URLS::CONTROLLER . 'login.php';
     const LOGOUT = URLS::CONTROLLER . 'logout.php';
 
-    const ADMIN_DIR = URLS::CONTROLLER . '/admin/';
+    const ADMIN_DIR = URLS::CONTROLLER . 'admin/';
     const ADMIN_PAGE = URLS::ADMIN_DIR . 'page.php';
     
     const ADMIN_USERS = URLS::ADMIN_DIR . 'users.php';

@@ -1,6 +1,6 @@
 <?php
 
-function secure()
+function secure(): void
 {
     if (!isset($_SESSION['id'])) {
         set_message('Please login first!');
@@ -9,12 +9,12 @@ function secure()
     }
 }
 
-function set_message(string $message)
+function set_message(string $message): void
 {
     $_SESSION["message"] = $message;
 }
 
-function get_message()
+function get_message(): void
 {
     if (isset($_SESSION['message'])) {
         echo '<p>' . $_SESSION['message'] . '</p>';
@@ -34,9 +34,9 @@ function redirect(string $url): void
 
 function render(string $view_name, array $data = []): void
 {
-    $view_dir = 'view/';
+    $view_dir = __DIR__ . '/../view/';
     extract($data);
-    $content = file_get_contents($view_dir . $view_name);
+    $content = file_get_contents($view_dir . $view_name . ".html");
 
     $content = preg_replace('/{{\s*(.+?)\s*}}/', '<?php echo $1; ?>', $content);
 

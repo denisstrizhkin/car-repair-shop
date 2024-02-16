@@ -14,6 +14,12 @@ create table users (
   foreign key (role_id) references roles (id) on delete cascade
 );
 
+create view users_view as (
+  select users.id, username, email, password, phone_number, roles.name as role
+  from users
+    join roles on users.role_id = roles.id  
+);
+
 insert into roles (name) values ('admin');
 insert into roles (name) values ('employee');
 insert into roles (name) values ('client');
@@ -34,7 +40,7 @@ create table model (
   name varchar(20)  not null unique
 );
 
-create table car (
+create table cars (
   id              int unsigned auto_increment primary key,
   vin             varchar(17)  not null unique,
   name            varchar(30)  not null,
@@ -43,6 +49,13 @@ create table car (
 
   foreign key (manufacturer_id) references manufacturer (id) on delete cascade,
   foreign key (model_id) references model (id) on delete cascade
+);
+
+create view cars_view as (
+  select cars.id, vin, cars.name, model.name as model, manufacturer.name as manufacturer
+  from cars
+    join model        on cars.model_id        = model.id
+    join manufacturer on cars.manufacturer_id = manufacturer.id
 );
 
 create table job (
@@ -58,8 +71,15 @@ create table job_prices (
 
   unique(job_id, car_id),
 
-  foreign key (job_id) references job (id) on delete cascade,
-  foreign key (car_id) references car (id) on delete cascade
+  foreign key (job_id) references job  (id) on delete cascade,
+  foreign key (car_id) references cars (id) on delete cascade
+);
+
+create view jobs_prices_view as (
+  select job.name as job, cars.name as car, price
+  from job_prices
+    join job  on job_prices.job_id = job.id
+    join cars on job_prices.car_id = cars.id
 );
 
 create table orders (
@@ -74,6 +94,6 @@ create table orders (
   unique(user_id, car_id, job_id, created),
 
   foreign key (job_id)  references job   (id) on delete cascade,
-  foreign key (car_id)  references car   (id) on delete cascade,
+  foreign key (car_id)  references cars  (id) on delete cascade,
   foreign key (user_id) references users (id) on delete cascade
 );
