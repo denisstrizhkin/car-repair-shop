@@ -8,10 +8,14 @@ include_once(__DIR__ . "/../../includes/functions.inc.php");
 
 secure('admin');
 
+$users = get_users();
+
 render('header', ['title' => CONSTANTS::TITLE . " | Панель управления aдминистратора"]);
 echo get_message();
-render('admin/panel', [
-    'link_users' => URLS::ADMIN_USERS,
-    'link_roles' => URLS::ADMIN_USERS,
+render('admin/users', [
+    'users' => $users,
+    'link_edit' => URLS::ADMIN_USERS_EDIT,
+    'link_add' => URLS::ADMIN_USERS_ADD,
+    'link_delete' => URLS::ADMIN_USERS,
 ]);
 render('footer', []);

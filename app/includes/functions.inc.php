@@ -2,12 +2,16 @@
 
 include_once(__DIR__ . "/constants.inc.php");
 
-function secure(): void
+function secure(string $role = ''): void
 {
     if (!isset($_SESSION['id'])) {
-        set_message('Please login first!');
-        header('Location: /');
-        die();
+        set_message('Пожалуйста сначала войдите в аккаунт!');
+        redirect(URLS::ROOT);
+    }
+
+    if ($role != $_SESSION['role']) {
+        set_message('У вашей роли недостаточно прав!');
+        redirect(URLS::ROOT);
     }
 }
 
@@ -44,8 +48,8 @@ function render(string $view_name, array $data = []): void
     $content = preg_replace('/@if\(\s*(.+?)\s*\)/', '<?php if($1): ?>', $content);
     $content = str_replace('@endif', '<?php endif; ?>', $content);
 
-    $content = preg_replace('/@foreach\(\s*(.+?)\s*\)/', '<?php foreach($1)', $content);
-    $content = str_replace('@endforeach', '<php endforeach; ?>', $content);
+    $content = preg_replace('/@foreach\(\s*(.+?)\s*\)/', '<?php foreach($1): ?>', $content);
+    $content = str_replace('@endforeach', '<?php endforeach; ?>', $content);
 
     ob_start();
     eval('?>'.$content);

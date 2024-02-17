@@ -1,0 +1,38 @@
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Имя пользователя</th>
+      <th>Почта</th>
+      <th>Роль</th>
+      <th>Номер телефона</th>
+      <th>Изменить | Удалить</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach($users as $user)
+    <tr>
+      <td>
+        {{ $user['id']; }}
+      </td>
+      <td>
+        {{ $user['username'] }}
+      </td>
+      <td>
+        {{ $user['email'] }}
+      </td>
+      <td>
+        {{ $user['role'] }}
+      </td>
+      <td>
+        {{ $user['phone_number'] }}
+      </td>
+      <td><a href="{{ $link_edit . '?id=' . $user['id'] }}">Изменить</a> |
+        <a href="{{ $link_delete . '?id=' . $user['id'] }}">Удалить</a>
+      </td>
+    </tr>
+    @endforeach
+  </tbody>
+</table>
+
+<a href="{{ $link_add }}"><button>Добавить</button></a>
