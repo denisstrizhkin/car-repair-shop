@@ -1,0 +1,22 @@
+<form method="post">
+  <label for="username">Имя пользователя</label>
+  <input type="username" name="username" id="username" required placeholder="имя пользователя" />
+
+  <label for="email">Электронная почта</label>
+  <input type="email" name="email" id="email" required placeholder="user@example.com" />
+
+  <label for="password">Пароль</label>
+  <input type="text" name="password" id="password" required placeholder="пароль" />
+
+  <label for="phone_number">Номер телефона (начиная с 9)</label>
+  <input type="tel" name="phone_number" id="phone_number" required placeholder="953 123 1122" />
+
+  <label for="role_id">Роль</label>
+  <select name="role_id" id="role_id" required>
+    @foreach( $roles as $role )
+    <option value="{{ $role['id'] }}">{{ $role['name'] }}</option>
+    @endforeach
+  </select>
+
+  <input type="submit" value="Добавить" />
+</form>
