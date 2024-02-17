@@ -1,5 +1,7 @@
 <?php
 
+include_once(__DIR__ . "/constants.inc.php");
+
 function secure(): void
 {
     if (!isset($_SESSION['id'])) {
@@ -34,9 +36,8 @@ function redirect(string $url): void
 
 function render(string $view_name, array $data = []): void
 {
-    $view_dir = __DIR__ . '/../view/';
     extract($data);
-    $content = file_get_contents($view_dir . $view_name . ".html");
+    $content = file_get_contents(CONSTANTS::VIEW_DIR . $view_name . ".html");
 
     $content = preg_replace('/{{\s*(.+?)\s*}}/', '<?php echo $1; ?>', $content);
 
