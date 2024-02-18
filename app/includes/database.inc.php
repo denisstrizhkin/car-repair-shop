@@ -46,7 +46,7 @@ function build_select(string $table, string $condition = ''): string
     return $sql . ' where ' . $condition;
 }
 
-function build_insert(string $table, array $fields)
+function build_insert(string $table, array $fields): string
 {
     $sql = 'insert into ' . $table . ' (';
     $form = 'values (';
@@ -55,6 +55,15 @@ function build_insert(string $table, array $fields)
         $form .= ':' . $key . ', ';
     }
     $sql = substr($sql, 0, -2) . ') ' . substr($form, 0, -2) . ')';
+    return $sql;
+}
+
+function build_update(string $table, string $condition, array $fields): string {
+    $sql = 'update ' . $table . ' set ';
+    foreach ($fields as $key => $value) {
+        $sql .= $key . ' = :' . $key . ', ';
+    }
+    $sql = substr($sql, 0, -2) . ' where ' . $condition;
     return $sql;
 }
 
@@ -69,6 +78,13 @@ function get_users(): array
 {
     $sql = build_select('users_view');
     $users = fetchAll($sql);
+    return $users;
+}
+
+function get_user(int $id): array
+{
+    $sql = build_select('users_view', 'id = :id');
+    $users = fetch($sql, ['id' => $id]);
     return $users;
 }
 
@@ -87,6 +103,26 @@ function add_user(
         'role_id' => $role_id
     ];
     $sql = build_insert('users', $fields);
+    db_execute($sql, $fields);
+}
+
+function update_user(
+    int $id,
+    string $username,
+    string $email,
+    string $password,
+    string $phone_number,
+    int $role_id
+): void {
+    $fields = [
+        'username' => $username,
+        'email' => $email,
+        'password' => $password,
+        'phone_number' => $phone_number,
+        'role_id' => $role_id
+    ];
+    $sql = build_update('users', 'id = :id', $fields);
+    $fields['id'] = $id;
     db_execute($sql, $fields);
 }
 

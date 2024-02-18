@@ -46,6 +46,7 @@ function render(string $view_name, array $data = []): void
     $content = preg_replace('/{{\s*(.+?)\s*}}/', '<?php echo $1; ?>', $content);
 
     $content = preg_replace('/@if\(\s*(.+?)\s*\)/', '<?php if($1): ?>', $content);
+    $content = str_replace('@else', '<?php else: ?>', $content);
     $content = str_replace('@endif', '<?php endif; ?>', $content);
 
     $content = preg_replace('/@foreach\(\s*(.+?)\s*\)/', '<?php foreach($1): ?>', $content);
