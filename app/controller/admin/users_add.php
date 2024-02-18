@@ -8,10 +8,11 @@ include_once(__DIR__ . "/../../includes/functions.inc.php");
 
 secure('admin');
 
-$roles = get_roles();
+$roles = Role::get_all();
 
 if (isset($_POST['email'])) {
     try {
+        $user = new 
         add_user(
             $_POST['username'],
             $_POST['email'],

@@ -13,8 +13,8 @@
 
   <label for="role_id">Роль</label>
   <select name="role_id" id="role_id" required>
-    @foreach( $roles as $role )
-    <option value="{{ $role['id'] }}">{{ $role['name'] }}</option>
+    @foreach{{ $roles as $role }}
+    <option value="{{ $role['id'] }}">{{ $role->name() }}</option>
     @endforeach
   </select>
 

@@ -1,29 +1,29 @@
-@if($user)
+@if{{ $user }}
 <form method="post">
   <label for="id">Id</label>
-  <input readonly name="id" id="id" value="{{ $user['id'] }}" />
+  <input readonly name="id" id="id" value="{{ $user->id() }}" />
 
   <label for="username">Имя пользователя</label>
   <input type="username" name="username" id="username" required placeholder="имя пользователя"
-    value="{{ $user['username'] }}" />
+    value="{{ $user->username() }}" />
 
   <label for="email">Электронная почта</label>
-  <input type="email" name="email" id="email" required placeholder="user@example.com" value="{{ $user['email'] }}" />
+  <input type="email" name="email" id="email" required placeholder="user@example.com" value="{{ $user->email() }}" />
 
   <label for="password">Пароль</label>
-  <input type="text" name="password" id="password" required placeholder="пароль" value="{{ $user['password'] }}" />
+  <input type="text" name="password" id="password" required placeholder="пароль" value="{{ $user->password() }}" />
 
   <label for="phone_number">Номер телефона (начиная с 9)</label>
   <input type="tel" name="phone_number" id="phone_number" required placeholder="953 123 1122"
-    value="{{ $user['phone_number'] }}" />
+    value="{{ $user->phone() }}" />
 
   <label for="role_id">Роль</label>
   <select name="role_id" id="role_id" required>
-    @foreach( $roles as $role )
-    @if($role['name'] == $user['role'])
-    <option value="{{ $role['id'] }}" selected>{{ $role['name'] }}</option>
+    @foreach{{ $roles as $role }}
+    @if{{ $role->name() == $user->role() }}
+    <option value="{{ $role->id() }}" selected>{{ $role->name() }}</option>
     @else
-    <option value="{{ $role['id'] }}">{{ $role['name'] }}</option>
+    <option value="{{ $role->id() }}">{{ $role->name() }}</option>
     @endif
     @endforeach
   </select>

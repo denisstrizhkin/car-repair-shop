@@ -26,7 +26,7 @@ function fetch(string $sql, array $values = []): mixed
     $dbh = db_connect();
     $sth = $dbh->prepare($sql);
     $sth->execute($values);
-    return $sth->fetch();
+    return $sth->fetch(PDO::FETCH_ASSOC);
 }
 
 function fetchAll(string $sql, array $values = []): array
@@ -34,7 +34,7 @@ function fetchAll(string $sql, array $values = []): array
     $dbh = db_connect();
     $sth = $dbh->prepare($sql);
     $sth->execute($values);
-    return $sth->fetchAll();
+    return $sth->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function build_select(string $table, string $condition = ''): string
@@ -65,70 +65,4 @@ function build_update(string $table, string $condition, array $fields): string {
     }
     $sql = substr($sql, 0, -2) . ' where ' . $condition;
     return $sql;
-}
-
-function user_authorize(string $email, string $password): mixed
-{
-    $sql = build_select('users_view', 'email = :email and password = :password');
-    $user = fetch($sql, ['email' => $email, 'password' => $password]);
-    return $user;
-}
-
-function get_users(): array
-{
-    $sql = build_select('users_view');
-    $users = fetchAll($sql);
-    return $users;
-}
-
-function get_user(int $id): array
-{
-    $sql = build_select('users_view', 'id = :id');
-    $users = fetch($sql, ['id' => $id]);
-    return $users;
-}
-
-function add_user(
-    string $username,
-    string $email,
-    string $password,
-    string $phone_number,
-    int $role_id
-): void {
-    $fields = [
-        'username' => $username,
-        'email' => $email,
-        'password' => $password,
-        'phone_number' => $phone_number,
-        'role_id' => $role_id
-    ];
-    $sql = build_insert('users', $fields);
-    db_execute($sql, $fields);
-}
-
-function update_user(
-    int $id,
-    string $username,
-    string $email,
-    string $password,
-    string $phone_number,
-    int $role_id
-): void {
-    $fields = [
-        'username' => $username,
-        'email' => $email,
-        'password' => $password,
-        'phone_number' => $phone_number,
-        'role_id' => $role_id
-    ];
-    $sql = build_update('users', 'id = :id', $fields);
-    $fields['id'] = $id;
-    db_execute($sql, $fields);
-}
-
-function get_roles(): array
-{
-    $sql = build_select('roles');
-    $users = fetchAll($sql);
-    return $users;
 }

@@ -8,7 +8,7 @@ include_once(__DIR__ . "/../../includes/functions.inc.php");
 
 secure('admin');
 
-$users = get_users();
+$users = User::get_all();
 
 render('header', ['title' => CONSTANTS::TITLE . " | Панель управления aдминистратора"]);
 echo get_message();

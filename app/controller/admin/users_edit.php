@@ -8,12 +8,12 @@ include_once(__DIR__ . "/../../includes/functions.inc.php");
 
 secure('admin');
 
-$roles = get_roles();
+$roles = Role::get_all();
 $user = null;
 if (!isset($_GET['id'])) {
     set_message('Пользователь не выбран');
 } else {
-    $user = get_user($_GET['id']);
+    $user = User::get($_GET['id']);
     if (!$user) {
         set_message('Пользователя не существует');
     }
@@ -21,15 +21,13 @@ if (!isset($_GET['id'])) {
 
 if (isset($_POST['email'])) {
     try {
-        update_user(
-            $_POST['id'],
-            $_POST['username'],
-            $_POST['email'],
-            $_POST['password'],
-            $_POST['phone_number'],
-            $_POST['role_id']
-        );
-        set_message('Пользователь изменен ' . $_POST['username']);
+        $user->set_username($_POST['username']);
+        $user->set_email($_POST['email']);
+        $user->set_password($_POST['password']);
+        $user->set_phone($_POST['phone_number']);
+        $user->set_role_id($_POST['role_id']);
+        $user->update();
+        set_message('Пользователь изменен ' . $user->username());
         redirect(URLS::ADMIN_USERS);
     } catch (Throwable $e) {
         set_message($e->getMessage());
