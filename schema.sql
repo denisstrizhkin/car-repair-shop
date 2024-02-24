@@ -41,13 +41,13 @@ create table manufacturer (
 
 create table model (
   id   int unsigned auto_increment primary key,
-  name varchar(20)  not null unique
+  code varchar(20)  not null unique,
+  name varchar(20)  not null
 );
 
 create table cars (
   id              int unsigned auto_increment primary key,
   vin             varchar(17)  not null unique,
-  name            varchar(30)  not null,
   model_id        int unsigned not null,
   manufacturer_id int unsigned not null,
 
