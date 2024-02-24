@@ -64,6 +64,11 @@ function build_insert(string $table, array $fields): string
     return $sql;
 }
 
+function build_delete(string $table, string $condition): string {
+    $sql = 'delete from ' . $table . ' where ' . $condition;
+    return $sql;
+}
+
 function build_update(string $table, string $condition, array $fields): string {
     $sql = 'update ' . $table . ' set ';
     foreach ($fields as $key => $value) {

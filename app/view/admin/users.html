@@ -28,7 +28,7 @@
         {{ $user->phone() }}
       </td>
       <td><a href="{{ $link_edit . '?id=' . $user->id() }}">Изменить</a> |
-        <a href="{{ $link_delete . '?id=' . $user->id() }}">Удалить</a>
+        <a href="{{ $link_delete . '?delete=' . $user->id() }}">Удалить</a>
       </td>
     </tr>
     @endforeach

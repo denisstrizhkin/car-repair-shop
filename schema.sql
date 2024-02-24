@@ -14,20 +14,24 @@ create table users (
   foreign key (role_id) references roles (id) on delete cascade
 );
 
-create view users_view as (
-  select users.id, username, email, password, phone_number, roles.name as role
-  from users
-    join roles on users.role_id = roles.id  
-);
-
 insert into roles (name) values ('admin');
 insert into roles (name) values ('employee');
 insert into roles (name) values ('client');
 
 insert into users (username, email, password, phone_number, role_id)
     values (
-        'admin', 'admin@example.com', 'admin123', '79531231122',
+        'admin', 'admin@example.com', 'admin123', '9531231122',
         (select id from roles where name = 'admin')
+    );
+insert into users (username, email, password, phone_number, role_id)
+    values (
+        'rika', 'rika@example.com', 'rika456', '9531111111',
+        (select id from roles where name = 'employee')
+    );
+insert into users (username, email, password, phone_number, role_id)
+    values (
+        'mion', 'mion@example.com', 'mion789', '9532222222',
+        (select id from roles where name = 'client')
     );
 
 create table manufacturer (

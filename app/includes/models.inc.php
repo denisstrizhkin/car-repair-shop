@@ -36,6 +36,13 @@ abstract class Model
         $this->id = db_last_insert_id();
     }
 
+    function delete(): void
+    {
+        $sql = build_delete(static::TABLE, 'id = :id');
+        db_execute($sql, ['id' => $this->id]);
+        $this->id = null;
+    }
+
     function update(): void
     {
         $sql = build_update(static::TABLE, 'id = :id', $this->fields);
