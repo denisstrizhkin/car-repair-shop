@@ -9,17 +9,10 @@ abstract class Model
 
     protected const string TABLE = 'model';
 
-    protected function __construct()
+    function __construct()
     {
         $this->fields = [];
         $this->id = null;
-    }
-
-    static function from_fields(string $name): static
-    {
-        $model = new static();
-        $model->fields['name'] = $name;
-        return $model;
     }
 
     protected static function from_fields_arr(array $fields): static
@@ -40,6 +33,7 @@ abstract class Model
     {
         $sql = build_insert(static::TABLE, $this->fields);
         db_execute($sql, $this->fields);
+        $this->id = db_last_insert_id();
     }
 
     function update(): void
@@ -53,7 +47,7 @@ abstract class Model
     static function get_all(): array
     {
         $sql = build_select(static::TABLE);
-        $models = fetchAll($sql);
+        $models = db_fetchAll($sql);
         $new_models = [];
         foreach ($models as $model) {
             $new_model = static::from_fields_arr($model);
@@ -65,7 +59,7 @@ abstract class Model
     static function get(int $id): static | null
     {
         $sql = build_select(static::TABLE, 'id = :id');
-        $model = fetch($sql, ['id' => $id]);
+        $model = db_fetch($sql, ['id' => $id]);
         if (!$model) {
             return null;
         }
@@ -97,7 +91,7 @@ class User extends Model
     static function user_authorize(string $email, string $password): self | null
     {
         $sql = build_select(self::TABLE, 'email = :email and password = :password');
-        $user = fetch($sql, ['email' => $email, 'password' => $password]);
+        $user = db_fetch($sql, ['email' => $email, 'password' => $password]);
         if (!$user) {
             return null;
         }

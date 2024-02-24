@@ -12,15 +12,14 @@ $roles = Role::get_all();
 
 if (isset($_POST['email'])) {
     try {
-        $user = new 
-        add_user(
-            $_POST['username'],
-            $_POST['email'],
-            $_POST['password'],
-            $_POST['phone_number'],
-            $_POST['role_id']
-        );
-        set_message('Добавлен пользователь ' . $_POST['username']);
+        $user = new User();
+        $user->set_username($_POST['username']);
+        $user->set_email($_POST['email']);
+        $user->set_password($_POST['password']);
+        $user->set_phone($_POST['phone_number']);
+        $user->set_role_id($_POST['role_id']);
+        $user->insert();
+        set_message('Добавлен пользователь ' . $user->username());
         redirect(URLS::ADMIN_USERS);
     } catch (Throwable $e) {
         set_message($e->getMessage());

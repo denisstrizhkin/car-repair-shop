@@ -21,7 +21,7 @@ function db_execute(string $sql, array $values = []): void
     $sth->execute($values);
 }
 
-function fetch(string $sql, array $values = []): mixed
+function db_fetch(string $sql, array $values = []): mixed
 {
     $dbh = db_connect();
     $sth = $dbh->prepare($sql);
@@ -29,12 +29,18 @@ function fetch(string $sql, array $values = []): mixed
     return $sth->fetch(PDO::FETCH_ASSOC);
 }
 
-function fetchAll(string $sql, array $values = []): array
+function db_fetchAll(string $sql, array $values = []): array
 {
     $dbh = db_connect();
     $sth = $dbh->prepare($sql);
     $sth->execute($values);
     return $sth->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function db_last_insert_id(): int {
+    $dbh = db_connect();
+    $id = $dbh->lastInsertId();
+    return $id;
 }
 
 function build_select(string $table, string $condition = ''): string
