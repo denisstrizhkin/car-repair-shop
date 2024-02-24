@@ -12,6 +12,6 @@ render('header', ['title' => CONSTANTS::TITLE . " | Панель управле�
 echo get_message();
 render('admin/panel', [
     'link_users' => URLS::ADMIN_USERS,
-    'link_roles' => URLS::ADMIN_USERS,
+    'link_roles' => URLS::ADMIN_ROLES,
 ]);
 render('footer', []);
