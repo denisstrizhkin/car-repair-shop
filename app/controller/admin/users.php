@@ -24,12 +24,9 @@ if (isset($_GET['delete'])) {
 
 $users = User::get_all();
 
-render('header', ['title' => CONSTANTS::TITLE . " | Панель управления aдминистратора"]);
-echo get_message();
-render('admin/users', [
+render_panel_page('admin/users', [
     'users' => $users,
     'link_edit' => URLS::ADMIN_USERS_EDIT,
     'link_add' => URLS::ADMIN_USERS_ADD,
     'link_delete' => URLS::ADMIN_USERS,
 ]);
-render('footer', []);

@@ -8,13 +8,15 @@ include_once(__DIR__ . "/../../includes/functions.inc.php");
 
 secure('admin');
 
+$manufacturers = CarModel::get_all();
+
 if (isset($_POST['name'])) {
     try {
-        $role = new Role();
-        $role->set_name($_POST['name']);
-        $role->insert();
-        set_message('Добавлена роль ' . $role->name());
-        redirect(URLS::ADMIN_ROLES);
+        $model = new CarModel();
+        $model->set_name($_POST['name']);
+        $model->insert();
+        set_message('Добавлена роль ' . $model->name());
+        redirect(URLS::ADMIN_MODEL);
     } catch (Throwable $e) {
         set_message($e->getMessage());
     }
@@ -23,5 +25,10 @@ if (isset($_POST['name'])) {
 
 render('header', ['title' => CONSTANTS::TITLE . " | Панель управления aдминистратора"]);
 echo get_message();
-render('admin/roles_add');
+render('admin/panel_nav', [
+    'link_panel' => URLS::ADMIN_PAGE,
+]);
+render('admin/model_add', [
+    'manufacturers' => $manufacturers,
+]);
 render('footer', []);

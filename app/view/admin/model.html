@@ -2,20 +2,24 @@
   <thead>
     <tr>
       <th>Id</th>
-      <th>Роль</th>
+      <th>Модель</th>
+      <th>Производитель</th>
     </tr>
   </thead>
   <tbody>
-    @foreach{{ $roles as $role }}
+    @foreach{{ $models as $model }}
     <tr>
       <td>
-        {{ $role->id() }}
+        {{ $model->id() }}
       </td>
       <td>
-        {{ $role->name() }}
+        {{ $model->name() }}
       </td>
-      <td><a href="{{ $link_edit . '?id=' . $role->id() }}">Изменить</a> |
-        <a href="{{ $link_delete . '?delete=' . $role->id() }}">Удалить</a>
+      <td>
+        {{ $model->manufacturer() }}
+      </td>
+      <td><a href="{{ $link_edit . '?id=' . $model->id() }}">Изменить</a> |
+        <a href="{{ $link_delete . '?delete=' . $model->id() }}">Удалить</a>
       </td>
     </tr>
     @endforeach

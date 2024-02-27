@@ -177,3 +177,36 @@ class Manufacturer extends Model
         $this->fields['name'] = $name;
     }
 }
+
+class CarModel extends Model
+{
+    protected const string TABLE = "model";
+    private string | null $manufacturer = null;
+
+    function name(): string
+    {
+        return $this->fields['name'];
+    }
+
+    function set_name(string $name): void
+    {
+        $this->fields['name'] = $name;
+    }
+
+    function manufacturer(): string
+    {
+        if ($this->manufacturer) {
+            return $this->manufacturer;
+        }
+        $manufacturer = Manufacturer::get($this->fields['manufacturer_id']);
+        $this->manufacturer = $manufacturer->name();
+        return $this->manufacturer;
+    }
+
+    function set_role_id(int $id): void
+    {
+        $manufacturer = Manufacturer::get($id);
+        $this->fields['role_id'] = $manufacturer->id();
+        $this->manufacturer = $manufacturer->name();
+    }
+}

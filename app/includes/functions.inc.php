@@ -54,3 +54,31 @@ function render(string $view_name, array $data = []): void
     file_put_contents($cache_file, $content);
     require $cache_file;
 }
+
+function render_panel_page(string $panel_view, array $panel_data): void
+{
+    $user = current_user();
+
+    $user_str = '';
+    switch ($user->role()) {
+        case 'admin':
+            $user_str = "администратора";
+            break;
+        case 1:
+            $user_str = "работника";
+            break;
+        case 2:
+            $user_str = "клиента";
+            break;
+    }
+
+    $panel_str = 'Панель ' . $user_str;
+
+    render('header', ['title' => CONSTANTS::TITLE . ' | ' . $panel_str]);
+    echo get_message();
+    render('admin/panel_nav', [
+        'link_panel' => URLS::ADMIN_PAGE,
+    ]);
+    render($panel_view, $panel_data);
+    render('footer', []);
+}

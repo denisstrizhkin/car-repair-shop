@@ -1,7 +1,14 @@
 <form method="post">
 
-  <label for="name">Роль</label>
-  <input type="name" name="name" id="name" required placeholder="роль" />
+  <label for="name">Модель</label>
+  <input type="name" name="name" id="name" required placeholder="модель" />
+
+  <label for="manufacturer_id">Производитель</label>
+  <select name="manufacturer_id" id="manufacturer_id" required>
+    @foreach{{ $manufacturers as $manufacturer }}
+    <option value="{{ $manufacturer->id() }}">{{ $manufacturer->name() }}</option>
+    @endforeach
+  </select>
 
   <input type="submit" value="Добавить" />
 </form>

@@ -10,26 +10,26 @@ secure('admin');
 
 if (isset($_GET['delete'])) {
     try {
-        $role = Role::get($_GET['delete']);
-        if ($role) {
-            set_message('Удалена роль ' . $role->name());
-            $role->delete();
+        $model = CarModel::get($_GET['delete']);
+        if ($model) {
+            set_message('Удалена модель ' . $model->name());
+            $model->delete();
         } else {
-            set_message('Роль не найдена');
+            set_message('Модель не найдена');
         }
     } catch (Throwable $e) {
         set_message($e->getMessage());
     }
 }
 
-$roles = Role::get_all();
+$models = CarModel::get_all();
 
 render('header', ['title' => CONSTANTS::TITLE . " | Панель управления aдминистратора"]);
 echo get_message();
-render('admin/roles', [
-    'roles' => $roles,
-    'link_edit' => URLS::ADMIN_ROLES_EDIT,
-    'link_add' => URLS::ADMIN_ROLES_ADD,
-    'link_delete' => URLS::ADMIN_ROLES,
+render('admin/model', [
+    'models' => $models,
+    'link_edit' => URLS::ADMIN_MODEL_EDIT,
+    'link_add' => URLS::ADMIN_MODEL_ADD,
+    'link_delete' => URLS::ADMIN_MODEL,
 ]);
 render('footer', []);
