@@ -20,8 +20,4 @@ if (isset($_POST['name'])) {
     }
 }
 
-
-render('header', ['title' => CONSTANTS::TITLE . " | Панель управления aдминистратора"]);
-echo get_message();
-render('admin/manufacturer_add');
-render('footer', []);
+render_panel_page('admin/manufacturer_add');

@@ -24,12 +24,9 @@ if (isset($_GET['delete'])) {
 
 $roles = Role::get_all();
 
-render('header', ['title' => CONSTANTS::TITLE . " | Панель управления aдминистратора"]);
-echo get_message();
-render('admin/roles', [
+render_panel_page('admin/roles', [
     'roles' => $roles,
     'link_edit' => URLS::ADMIN_ROLES_EDIT,
     'link_add' => URLS::ADMIN_ROLES_ADD,
     'link_delete' => URLS::ADMIN_ROLES,
 ]);
-render('footer', []);

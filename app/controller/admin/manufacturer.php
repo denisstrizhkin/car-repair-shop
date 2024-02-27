@@ -24,12 +24,9 @@ if (isset($_GET['delete'])) {
 
 $manufacturers = Manufacturer::get_all();
 
-render('header', ['title' => CONSTANTS::TITLE . " | Панель управления aдминистратора"]);
-echo get_message();
-render('admin/manufacturer', [
+render_panel_page('admin/manufacturer', [
     'manufacturers' => $manufacturers,
     'link_edit' => URLS::ADMIN_MANUFACTURER_EDIT,
     'link_add' => URLS::ADMIN_MANFUCATURER_ADD,
     'link_delete' => URLS::ADMIN_MANUFACTURER,
 ]);
-render('footer', []);

@@ -22,13 +22,6 @@ if (isset($_POST['name'])) {
     }
 }
 
-
-render('header', ['title' => CONSTANTS::TITLE . " | Панель управления aдминистратора"]);
-echo get_message();
-render('admin/panel_nav', [
-    'link_panel' => URLS::ADMIN_PAGE,
-]);
-render('admin/model_add', [
+render_panel_page('admin/model_add', [
     'manufacturers' => $manufacturers,
 ]);
-render('footer', []);

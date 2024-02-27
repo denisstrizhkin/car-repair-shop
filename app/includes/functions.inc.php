@@ -55,7 +55,7 @@ function render(string $view_name, array $data = []): void
     require $cache_file;
 }
 
-function render_panel_page(string $panel_view, array $panel_data): void
+function render_panel_page(string $panel_view, array $panel_data = []): void
 {
     $user = current_user();
 

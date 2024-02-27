@@ -24,12 +24,9 @@ if (isset($_GET['delete'])) {
 
 $models = CarModel::get_all();
 
-render('header', ['title' => CONSTANTS::TITLE . " | Панель управления aдминистратора"]);
-echo get_message();
-render('admin/model', [
+render_panel_page('admin/model', [
     'models' => $models,
     'link_edit' => URLS::ADMIN_MODEL_EDIT,
     'link_add' => URLS::ADMIN_MODEL_ADD,
     'link_delete' => URLS::ADMIN_MODEL,
 ]);
-render('footer', []);

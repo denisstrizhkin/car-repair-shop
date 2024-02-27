@@ -29,10 +29,6 @@ if (isset($_POST['name'])) {
     }
 }
 
-
-render('header', ['title' => CONSTANTS::TITLE . " | Панель управления aдминистратора"]);
-echo get_message();
-render('admin/roles_edit', [
+render_panel_page('admin/roles_edit', [
     'role' => $role,
 ]);
-render('footer', []);
