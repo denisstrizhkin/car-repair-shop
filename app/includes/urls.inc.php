@@ -25,4 +25,12 @@ class URLS {
     const ADMIN_MODEL = URLS::ADMIN_DIR . 'model.php';
     const ADMIN_MODEL_EDIT = URLS::ADMIN_DIR . 'model_edit.php';
     const ADMIN_MODEL_ADD = URLS::ADMIN_DIR . 'model_add.php';
+
+    const ADMIN_JOB = URLS::ADMIN_DIR . 'job.php';
+    const ADMIN_JOB_EDIT = URLS::ADMIN_DIR . 'job_edit.php';
+    const ADMIN_JOB_ADD = URLS::ADMIN_DIR . 'job_add.php';
+
+    const ADMIN_JOB_PRICES = URLS::ADMIN_DIR . 'job_prices.php';
+    const ADMIN_JOB_PRICES_EDIT = URLS::ADMIN_DIR . 'job_prices_edit.php';
+    const ADMIN_JOB_PRICES_ADD = URLS::ADMIN_DIR . 'job_prices_add.php';
 }

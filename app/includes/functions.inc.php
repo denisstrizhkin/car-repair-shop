@@ -55,7 +55,7 @@ function render(string $view_name, array $data = []): void
     require $cache_file;
 }
 
-function render_panel_page(string $panel_view, array $panel_data = []): void
+function get_panel_title(): string
 {
     $user = current_user();
 
@@ -72,9 +72,13 @@ function render_panel_page(string $panel_view, array $panel_data = []): void
             break;
     }
 
-    $panel_str = 'Панель ' . $user_str;
+    $panel_title = CONSTANTS::TITLE . ' | Панель ' . $user_str;
+    return $panel_title;
+}
 
-    render('header', ['title' => CONSTANTS::TITLE . ' | ' . $panel_str]);
+function render_panel_page(string $panel_view, array $panel_data = []): void
+{
+    render('header', ['title' => get_panel_title()]);
     echo get_message();
     render('admin/panel_nav', [
         'link_panel' => URLS::ADMIN_PAGE,
