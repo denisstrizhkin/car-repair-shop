@@ -8,12 +8,20 @@ include_once(__DIR__ . "/../../includes/functions.inc.php");
 
 secure('admin');
 
+if (isset($_POST['name'])) {
+    try {
+        $role = new Role();
+        $role->set_name($_POST['name']);
+        $role->insert();
+        set_message('Добавлена роль ' . $role->name());
+        redirect(URLS::ADMIN_ROLES);
+    } catch (Throwable $e) {
+        set_message($e->getMessage());
+    }
+}
+
+
 render('header', ['title' => CONSTANTS::TITLE . " | Панель управления aдминистратора"]);
 echo get_message();
-render('admin/panel', [
-    'link_users' => URLS::ADMIN_USERS,
-    'link_roles' => URLS::ADMIN_ROLES,
-    'link_manufacturer' => URLS::ADMIN_MANUFACTURER,
-    'link_model' => URLS::ADMIN_MODEL,
-]);
+render('admin/roles_add');
 render('footer', []);
