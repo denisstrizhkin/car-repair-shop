@@ -22,6 +22,7 @@ if (!isset($_GET['id'])) {
 if (isset($_POST['name'])) {
     try {
         $model->set_name($_POST['name']);
+        $model->set_manufacturer_id($_POST['manufacturer_id']);
         $model->update();
         set_message('Модель изменена ' . $model->name());
         redirect(URLS::ADMIN_MODEL);

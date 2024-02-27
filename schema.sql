@@ -53,6 +53,12 @@ create table model (
   foreign key (manufacturer_id) references manufacturer (id) on delete cascade
 );
 
+create view model_view as (
+  select model.id, model.name as model, manufacturer.name as manufacturer
+  from model
+    join manufacturer on model.manufacturer_id = manufacturer.id
+);
+
 insert into model (name, manufacturer_id) values (
   'Sorento', (select id from manufacturer where name = 'KIA')
 );
@@ -74,11 +80,22 @@ insert into model (name, manufacturer_id) values (
 
 create table job (
   id   int unsigned auto_increment primary key,
-  name varchar(30)  not null unique,
+  name varchar(50)  not null unique,
   description text  not null
 );
 
+insert into job (name, description) values (
+  'Стандартное ТО', 'Замена масла в ДВС, фильтров воздушного, масляного, топливного, диагностика подвески, тормозной системы и технических жидкостей'
+);
+insert into job (name, description) values (
+  'Замена масла в двигателе', 'Замена масла в двигателе и масляного фильтра'
+);
+insert into job (name, description) values (
+  'Замена жидкости ГУР', 'Замена жидкости гидроусилителя руля с прокачкой'
+);
+
 create table job_prices (
+  id       int unsigned auto_increment primary key,
   job_id   int unsigned not null,
   model_id int unsigned not null,
   price    int unsigned not null,
@@ -89,12 +106,11 @@ create table job_prices (
   foreign key (model_id) references model (id) on delete cascade
 );
 
--- create view jobs_prices_view as (
---   select job.name as job, cars.name as car, price
---   from job_prices
---     join job  on job_prices.job_id = job.id
---     join cars on job_prices.car_id = cars.id
--- );
+insert into job_prices (job_id, model_id, price) values (
+  (select id from job where name = 'Замена жидкости ГУР'),
+  (select id from model_view where model = 'Creta' and manufacturer = 'Hyundai'),
+  10000
+);
 
 create table orders (
   id         int unsigned auto_increment primary key,
