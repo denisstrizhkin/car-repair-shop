@@ -203,10 +203,10 @@ class CarModel extends Model
         return $this->manufacturer;
     }
 
-    function set_role_id(int $id): void
+    function set_manufacturer_id(int $id): void
     {
         $manufacturer = Manufacturer::get($id);
-        $this->fields['role_id'] = $manufacturer->id();
+        $this->fields['manufacturer_id'] = $manufacturer->id();
         $this->manufacturer = $manufacturer->name();
     }
 }

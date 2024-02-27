@@ -1,10 +1,21 @@
-@if{{ $role }}
+@if{{ $model }}
 <form method="post">
   <label for="id">Id</label>
-  <input readonly name="id" id="id" value="{{ $role->id() }}" />
+  <input readonly name="id" id="id" value="{{ $model->id() }}" />
 
-  <label for="name">Роль</label>
-  <input type="name" name="name" id="name" required placeholder="роль" value="{{ $role->name() }}" />
+  <label for="name">Модель</label>
+  <input type="name" name="name" id="name" required placeholder="модель" value="{{ $model->name() }}" />
+
+  <label for="manufacturer_id">Производитель</label>
+  <select name="manufacturer_id" id="manufacturer_id" required>
+    @foreach{{ $manufacturers as $manufacturer }}
+    @if{{ $manufacturer->name() == $model->manufacturer() }}
+    <option value="{{ $manufacturer->id() }}" selected>{{ $manufacturer->name() }}</option>
+    @else
+    <option value="{{ $manufacturer->id() }}">{{ $manufacturer->name() }}</option>
+    @endif
+    @endforeach
+  </select>
 
   <input type="submit" value="Изменить" />
 </form>
