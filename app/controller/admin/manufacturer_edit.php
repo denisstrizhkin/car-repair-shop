@@ -8,22 +8,22 @@ include_once(__DIR__ . "/../../includes/functions.inc.php");
 
 secure('admin');
 
-$role = null;
+$manufacturer = null;
 if (!isset($_GET['id'])) {
-    set_message('Роль не выбрана');
+    set_message('Производитель не выбран');
 } else {
-    $role = role::get($_GET['id']);
-    if (!$role) {
-        set_message('Роли не существует');
+    $manufacturer = manufacturer::get($_GET['id']);
+    if (!$manufacturer) {
+        set_message('Производителя не существует');
     }
 }
 
 if (isset($_POST['name'])) {
     try {
-        $role->set_name($_POST['name']);
-        $role->update();
-        set_message('Роль изменена ' . $role->name());
-        redirect(URLS::ADMIN_ROLES);
+        $manufacturer->set_name($_POST['name']);
+        $manufacturer->update();
+        set_message('Производитель изменен ' . $manufacturer->name());
+        redirect(URLS::ADMIN_MANUFACTURER);
     } catch (Throwable $e) {
         set_message($e->getMessage());
     }
@@ -32,7 +32,7 @@ if (isset($_POST['name'])) {
 
 render('header', ['title' => CONSTANTS::TITLE . " | Панель управления aдминистратора"]);
 echo get_message();
-render('admin/roles_edit', [
-    'role' => $role,
+render('admin/manufacturer_edit', [
+    'manufacturer' => $manufacturer,
 ]);
 render('footer', []);

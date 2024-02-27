@@ -1,0 +1,11 @@
+@if{{ $role }}
+<form method="post">
+  <label for="id">Id</label>
+  <input readonly name="id" id="id" value="{{ $role->id() }}" />
+
+  <label for="name">Роль</label>
+  <input type="name" name="name" id="name" required placeholder="роль" value="{{ $role->name() }}" />
+
+  <input type="submit" value="Изменить" />
+</form>
+@endif

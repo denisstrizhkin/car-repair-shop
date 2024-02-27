@@ -1,0 +1,25 @@
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Роль</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach{{ $roles as $role }}
+    <tr>
+      <td>
+        {{ $role->id() }}
+      </td>
+      <td>
+        {{ $role->name() }}
+      </td>
+      <td><a href="{{ $link_edit . '?id=' . $role->id() }}">Изменить</a> |
+        <a href="{{ $link_delete . '?delete=' . $role->id() }}">Удалить</a>
+      </td>
+    </tr>
+    @endforeach
+  </tbody>
+</table>
+
+<a href="{{ $link_add }}"><button>Добавить</button></a>

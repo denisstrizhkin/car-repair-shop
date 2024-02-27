@@ -10,26 +10,26 @@ secure('admin');
 
 if (isset($_GET['delete'])) {
     try {
-        $role = Role::get($_GET['delete']);
-        if ($role) {
-            set_message('Удалена роль ' . $role->name());
-            $role->delete();
+        $manufacturer = Manufacturer::get($_GET['delete']);
+        if ($manufacturer) {
+            set_message('Удален производитель ' . $manufacturer->name());
+            $manufacturer->delete();
         } else {
-            set_message('Роль не найдена');
+            set_message('Производитель не найден');
         }
     } catch (Throwable $e) {
         set_message($e->getMessage());
     }
 }
 
-$roles = Role::get_all();
+$manufacturers = Manufacturer::get_all();
 
 render('header', ['title' => CONSTANTS::TITLE . " | Панель управления aдминистратора"]);
 echo get_message();
-render('admin/roles', [
-    'roles' => $roles,
-    'link_edit' => URLS::ADMIN_ROLES_EDIT,
-    'link_add' => URLS::ADMIN_ROLES_ADD,
-    'link_delete' => URLS::ADMIN_ROLES,
+render('admin/manufacturer', [
+    'manufacturers' => $manufacturers,
+    'link_edit' => URLS::ADMIN_MANUFACTURER_EDIT,
+    'link_add' => URLS::ADMIN_MANFUCATURER_ADD,
+    'link_delete' => URLS::ADMIN_MANUFACTURER,
 ]);
 render('footer', []);

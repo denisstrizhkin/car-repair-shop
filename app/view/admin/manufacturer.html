@@ -1,0 +1,25 @@
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Название</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach{{ $manufacturers as $manufacturer }}
+    <tr>
+      <td>
+        {{ $manufacturer->id() }}
+      </td>
+      <td>
+        {{ $manufacturer->name() }}
+      </td>
+      <td><a href="{{ $link_edit . '?id=' . $manufacturer->id() }}">Изменить</a> |
+        <a href="{{ $link_delete . '?delete=' . $manufacturer->id() }}">Удалить</a>
+      </td>
+    </tr>
+    @endforeach
+  </tbody>
+</table>
+
+<a href="{{ $link_add }}"><button>Добавить</button></a>

@@ -10,11 +10,11 @@ secure('admin');
 
 if (isset($_POST['name'])) {
     try {
-        $role = new Role();
-        $role->set_name($_POST['name']);
-        $role->insert();
-        set_message('Добавлена роль ' . $role->name());
-        redirect(URLS::ADMIN_ROLES);
+        $manufacturer = new Manufacturer();
+        $manufacturer->set_name($_POST['name']);
+        $manufacturer->insert();
+        set_message('Добавлен производитель машин ' . $manufacturer->name());
+        redirect(URLS::ADMIN_MANUFACTURER);
     } catch (Throwable $e) {
         set_message($e->getMessage());
     }
@@ -23,5 +23,5 @@ if (isset($_POST['name'])) {
 
 render('header', ['title' => CONSTANTS::TITLE . " | Панель управления aдминистратора"]);
 echo get_message();
-render('admin/roles_add');
+render('admin/manufacturer_add');
 render('footer', []);
