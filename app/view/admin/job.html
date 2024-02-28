@@ -2,20 +2,24 @@
   <thead>
     <tr>
       <th>Id</th>
-      <th>Роль</th>
+      <th>Работа</th>
+      <th>Описание</th>
     </tr>
   </thead>
   <tbody>
-    @foreach{{ $roles as $role }}
+    @foreach{{ $jobs as $job }}
     <tr>
       <td>
-        {{ $role->id() }}
+        {{ $job->id() }}
       </td>
       <td>
-        {{ $role->name() }}
+        {{ $job->name() }}
       </td>
-      <td><a href="{{ $link_edit . '?id=' . $role->id() }}">Изменить</a> |
-        <a href="{{ $link_delete . '?delete=' . $role->id() }}">Удалить</a>
+      <td>
+        {{ $job->description() }}
+      </td>
+      <td><a href="{{ $link_edit . '?id=' . $job->id() }}">Изменить</a> |
+        <a href="{{ $link_delete . '?delete=' . $job->id() }}">Удалить</a>
       </td>
     </tr>
     @endforeach

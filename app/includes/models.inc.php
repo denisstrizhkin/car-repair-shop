@@ -210,3 +210,28 @@ class CarModel extends Model
         $this->manufacturer = $manufacturer->name();
     }
 }
+
+class Job extends Model
+{
+    protected const string TABLE = "job";
+
+    function name(): string
+    {
+        return $this->fields['name'];
+    }
+
+    function set_name(string $name): void
+    {
+        $this->fields['name'] = $name;
+    }
+
+    function description(): string
+    {
+        return $this->fields['description'];
+    }
+
+    function set_description(string $description): void
+    {
+        $this->fields['description'] = $description;
+    }
+}

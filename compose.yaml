@@ -24,6 +24,20 @@ services:
       - DB_PASSWD=$DB_USER_PASSWORD
     volumes:
       - ./app:/app
+  schema:
+    build:
+      context: .
+      dockerfile: schema.Dockerfile
+    depends_on:
+      - mysql
+    environment:
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=$DB_NAME
+      - DB_USER=$DB_USER
+      - DB_PASSWD=$DB_USER_PASSWORD
+    volumes:
+      - ./schema:/schema
   mysql:
     image: mysql
     environment:
@@ -32,7 +46,6 @@ services:
       - MYSQL_USER=$DB_USER
       - MYSQL_PASSWORD=$DB_USER_PASSWORD
     volumes:
-      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
       - db:/var/lib/mysql
 
 volumes:

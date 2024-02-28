@@ -10,23 +10,25 @@ secure('admin');
 
 if (isset($_GET['delete'])) {
     try {
-        $role = Role::get($_GET['delete']);
-        if ($role) {
-            set_message('Удалена роль ' . $role->name());
-            $role->delete();
+        $job = Job::get($_GET['delete']);
+        if ($job) {
+            set_message('Удалена работа ' . $job->name());
+            $job->delete();
         } else {
-            set_message('Роль не найдена');
+            set_message('Работа не найдена');
         }
     } catch (Throwable $e) {
         set_message($e->getMessage());
     }
 }
 
-$roles = Role::get_all();
+$jobs = Job::get_all();
+echo $jobs[0]->name();
+var_dump($jobs);
 
-render_panel_page('admin/roles', [
-    'roles' => $roles,
-    'link_edit' => URLS::ADMIN_ROLES_EDIT,
-    'link_add' => URLS::ADMIN_ROLES_ADD,
-    'link_delete' => URLS::ADMIN_ROLES,
-]);
+// render_panel_page('admin/job', [
+//     'jobs' => $jobs,
+//     'link_edit' => URLS::ADMIN_JOB_EDIT,
+//     'link_add' => URLS::ADMIN_JOB_ADD,
+//     'link_delete' => URLS::ADMIN_JOB,
+// ]);
