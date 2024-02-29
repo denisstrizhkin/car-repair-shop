@@ -10,14 +10,15 @@ secure('admin');
 
 if (isset($_POST['name'])) {
     try {
-        $role = new Role();
-        $role->set_name($_POST['name']);
-        $role->insert();
-        set_message('Добавлена роль ' . $role->name());
-        redirect(URLS::ADMIN_ROLES);
+        $job = new Job();
+        $job->set_name($_POST['name']);
+        $job->set_description($_POST['description']);
+        $job->insert();
+        set_message('Добавлена работа ' . $job->name());
+        redirect(URLS::ADMIN_JOB);
     } catch (Throwable $e) {
         set_message($e->getMessage());
     }
 }
 
-render_panel_page('admin/roles_add');
+render_panel_page('admin/job_add');

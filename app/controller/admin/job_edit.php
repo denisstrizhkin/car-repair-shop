@@ -8,27 +8,28 @@ include_once(__DIR__ . "/../../includes/functions.inc.php");
 
 secure('admin');
 
-$role = null;
+$job = null;
 if (!isset($_GET['id'])) {
-    set_message('Роль не выбрана');
+    set_message('Работа не выбрана');
 } else {
-    $role = role::get($_GET['id']);
-    if (!$role) {
-        set_message('Роли не существует');
+    $job = job::get($_GET['id']);
+    if (!$job) {
+        set_message('Работы не существует');
     }
 }
 
 if (isset($_POST['name'])) {
     try {
-        $role->set_name($_POST['name']);
-        $role->update();
-        set_message('Роль изменена ' . $role->name());
-        redirect(URLS::ADMIN_ROLES);
+        $job->set_name($_POST['name']);
+        $job->set_description($_POST['description']);
+        $job->update();
+        set_message('Роль изменена ' . $job->name());
+        redirect(URLS::ADMIN_JOB);
     } catch (Throwable $e) {
         set_message($e->getMessage());
     }
 }
 
-render_panel_page('admin/roles_edit', [
-    'role' => $role,
+render_panel_page('admin/job_edit', [
+    'job' => $job,
 ]);

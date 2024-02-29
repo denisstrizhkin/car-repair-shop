@@ -23,12 +23,10 @@ if (isset($_GET['delete'])) {
 }
 
 $jobs = Job::get_all();
-echo $jobs[0]->name();
-var_dump($jobs);
 
-// render_panel_page('admin/job', [
-//     'jobs' => $jobs,
-//     'link_edit' => URLS::ADMIN_JOB_EDIT,
-//     'link_add' => URLS::ADMIN_JOB_ADD,
-//     'link_delete' => URLS::ADMIN_JOB,
-// ]);
+render_panel_page('admin/job', [
+    'jobs' => $jobs,
+    'link_edit' => URLS::ADMIN_JOB_EDIT,
+    'link_add' => URLS::ADMIN_JOB_ADD,
+    'link_delete' => URLS::ADMIN_JOB,
+]);
