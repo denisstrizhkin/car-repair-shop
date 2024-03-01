@@ -2,28 +2,40 @@
   <thead>
     <tr>
       <th>Id</th>
-      <th>Работа</th>
+      <th>Клиент</th>
       <th>Модель</th>
+      <th>Работа</th>
       <th>Цена</th>
+      <th>Комментарий</th>
+      <th>Дата Создания</th>
     </tr>
   </thead>
   <tbody>
-    @foreach{{ $job_prices as $job_price }}
+    @foreach{{ $orders as $order }}
     <tr>
       <td>
-        {{ $job_price->id() }}
+        {{ $order->id() }}
       </td>
       <td>
-        {{ $job_price->job() }}
+        {{ $order->user() }}
       </td>
       <td>
-        {{ $job_price->model() }}
+        {{ $order->model() }}
       </td>
       <td>
-        {{ $job_price->price() }}
+        {{ $order->job() }}
       </td>
-      <td><a href="{{ $link_edit . '?id=' . $job_price->id() }}">Изменить</a> |
-        <a href="{{ $link_delete . '?delete=' . $job_price->id() }}">Удалить</a>
+      <td>
+        {{ $order->price() }}
+      </td>
+      <td>
+        {{ $order->commentary() }}
+      </td>
+      <td>
+        {{ $order->created() }}
+      </td>
+      <td><a href="{{ $link_edit . '?id=' . $order->id() }}">Изменить</a> |
+        <a href="{{ $link_delete . '?delete=' . $order->id() }}">Удалить</a>
       </td>
     </tr>
     @endforeach
