@@ -14,10 +14,9 @@ if (isset($_POST['user_id'])) {
         $orders->set_job_id($_POST['job_id']);
         $orders->set_user_id($_POST['job_id']);
         $orders->set_model_id($_POST['model_id']);
-        $orders->set_job_id($_POST['model_id']);
         $orders->set_price(JobPrices::find_price($_POST['model_id'], $_POST['job_id']));
         $orders->set_commentary($_POST['commentary']);
-        $orders->set_created(date('m/d/Y h:i:s a', time()));
+        $orders->set_created(date('Y-m-d H:i:s', time()));
         $orders->insert();
         set_message('Добавлен заказ ' . $orders->job() . ' | ' . $orders->model());
         redirect(URLS::ADMIN_ORDERS);
