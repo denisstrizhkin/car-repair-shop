@@ -1,92 +1,80 @@
 <form method="post">
-    <label for="user_id">Клиент</label>
-    <select name="user_id" id="user_id" required>
-        @foreach{{ $users as $user }}
-        <option value="{{ $user->id() }}">{{ $user->username() }}</option>
-        @endforeach
-    </select>
+  <label for="user_id">Клиент</label>
+  <select name="user_id" id="user_id" required>
+    @foreach{{ $users as $user }}
+    <option value="{{ $user->id() }}">{{ $user->username() }}</option>
+    @endforeach
+  </select>
 
-    <label for="manufacturer_id">Производитель</label>
-    <select name="manufacturer_id" id="manufacturer_id" required>
-        @foreach{{ $manufacturers as $manufacturer }}
-        <option value="{{ $manufacturer->id() }}">{{ $manufacturer->name() }}</option>
-        @endforeach
-    </select>
+  <label for="manufacturer_id">Производитель</label>
+  <select name="manufacturer_id" id="manufacturer_id" required>
+    @foreach{{ $manufacturers as $manufacturer }}
+    <option value="{{ $manufacturer->id() }}">
+      {{ $manufacturer->name() }}
+    </option>
+    @endforeach
+  </select>
 
-    <label for="model_id">Модель</label>
-    <select name="model_id" id="model_id" required></select>
+  <label for="model_id">Модель</label>
+  <select name="model_id" id="model_id" required></select>
 
-    <label for="job_id">Работа</label>
-    <select name="job_id" id="job_id" required>
-        @foreach{{ $jobs as $job }}
-        <option value="{{ $job->id() }}">{{ $job->name() }}</option>
-        @endforeach
-    </select>
+  <label for="job_id">Работа</label>
+  <select name="job_id" id="job_id" required>
+    @foreach{{ $jobs as $job }}
+    <option value="{{ $job->id() }}">{{ $job->name() }}</option>
+    @endforeach
+  </select>
 
-    <label for="price">Цена</label>
-    <input readonly type="number" name="price" id="price" placeholder="цена" />
+  <label for="price">Цена</label>
+  <input readonly type="number" name="price" id="price" placeholder="цена" />
 
-    <label for="commentary">Комментарий</label>
-    <textarea name="commentary" id="commentary" required placeholder="комментарий"></textarea>
+  <label for="commentary">Комментарий</label>
+  <textarea
+    name="commentary"
+    id="commentary"
+    required
+    placeholder="комментарий"
+  ></textarea>
 
-    <input type="submit" value="Добавить" />
+  <input type="submit" value="Добавить" />
 </form>
 
 <script>
-    "use strict";
+  "use strict";
 
-    const current_model = undefined;
+  const current_model = undefined;
 
-    const models = {};
-    @foreach{{ $models as $model }}
-    models[{{ $model -> id() }}] = {
-        name: "{{ $model->name() }}",
-            manufacturer: "{{ $model->manufacturer() }}"
-    };
-    @endforeach
+  const models = {};
+  @foreach{{ $models as $model }}
+  models[{{ $model -> id() }}] = {
+      name: "{{ $model->name() }}",
+      manufacturer: "{{ $model->manufacturer() }}"
+  };
+  @endforeach
 
-    const manufacturers = {};
-    @foreach{{ $manufacturers as $manufacturer }}
-    manufacturers["{{ $manufacturer->name() }}"] = "{{ $manufacturer->id() }}";
-    @endforeach
-
+  const manufacturers = {};
+  @foreach{{ $manufacturers as $manufacturer }}
+  manufacturers["{{ $manufacturer->name() }}"] = "{{ $manufacturer->id() }}";
+  @endforeach
 </script>
 
-<script src="/static/models_populator.js">
-</script>
+<script src="/static/models_populator.js"></script>
 
 <script>
-    const job_prices = {};
-    @foreach{{ $job_prices as $job_price }}
-    job_prices["{{ $job_price->job() . ' | ' . $job_price->model() }}"] = "{{ $job_price->price() }}";
-    @endforeach
+  const job_prices = {};
+  @foreach{{ $job_prices as $job_price }}
+  job_prices[{{ $job_price->id() }}] = {
+      price: "{{ $job_price->price() }}",
+      model: "{{ $job_price->model() }}",
+      job: "{{ $job_price->job() }}",
+  };
+  @endforeach
 
-    const jobs = {};
-    @foreach{{ $jobs as $job }}
-    jobs["{{ $job->id() }}"] = "{{ $job->name() }}";
-    @endforeach
-
-    const manufacturer_selector = document.getElementById("manufacturer_id");
-    const model_selector = document.getElementById("model_id");
-    const job_selector = document.getElementById("job_id");
-    const update_price = () => {
-        const price = document.getElementById("price");
-
-        const model = models[model_selector.value];
-        const job = jobs[job_selector.value];
-
-        const key = job + " | " + model.manufacturer + " | " + model.name;
-        price.value = job_prices[key];
-    }
-
-    update_price();
-    manufacturer_selector.addEventListener('change', ev => {
-        update_price();
-    });
-    model_selector.addEventListener('change', ev => {
-        update_price();
-    });
-    job_selector.addEventListener('change', ev => {
-        update_price();
-    });
+  const jobs = {};
+  @foreach{{ $jobs as $job }}
+  jobs[{{ $job->id() }}] = "{{ $job->name() }}";
+  @endforeach
 </script>
+
+<script src="/static/jobs_populator.js"></script>
+<script src="/static/price_update.js"></script>
