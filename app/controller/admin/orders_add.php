@@ -10,15 +10,15 @@ secure('admin');
 
 if (isset($_POST['user_id'])) {
     try {
-        $orders = new Orders();
-        $orders->set_job_id($_POST['job_id']);
-        $orders->set_user_id($_POST['job_id']);
-        $orders->set_model_id($_POST['model_id']);
-        $orders->set_price(JobPrices::find_price($_POST['model_id'], $_POST['job_id']));
-        $orders->set_commentary($_POST['commentary']);
-        $orders->set_created(date('Y-m-d H:i:s', time()));
-        $orders->insert();
-        set_message('Добавлен заказ ' . $orders->job() . ' | ' . $orders->model());
+        $order = new Orders();
+        $order->set_job_id($_POST['job_id']);
+        $order->set_user_id($_POST['job_id']);
+        $order->set_model_id($_POST['model_id']);
+        $order->set_price(JobPrices::find_price($_POST['model_id'], $_POST['job_id']));
+        $order->set_commentary($_POST['commentary']);
+        $order->set_created(date('Y-m-d H:i:s', time()));
+        $order->insert();
+        set_message('Добавлен заказ ' . $order->job() . ' | ' . $order->model());
         redirect(URLS::ADMIN_ORDERS);
     } catch (Throwable $e) {
         set_message($e->getMessage());

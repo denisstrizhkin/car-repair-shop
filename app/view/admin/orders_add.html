@@ -19,11 +19,7 @@
   <select name="model_id" id="model_id" required></select>
 
   <label for="job_id">Работа</label>
-  <select name="job_id" id="job_id" required>
-    @foreach{{ $jobs as $job }}
-    <option value="{{ $job->id() }}">{{ $job->name() }}</option>
-    @endforeach
-  </select>
+  <select name="job_id" id="job_id" required></select>
 
   <label for="price">Цена</label>
   <input readonly type="number" name="price" id="price" placeholder="цена" />
@@ -60,6 +56,8 @@
 <script src="/static/models_populator.js"></script>
 
 <script>
+  "use strict";
+
   const job_prices = {};
   @foreach{{ $job_prices as $job_price }}
   job_prices[{{ $job_price->id() }}] = {

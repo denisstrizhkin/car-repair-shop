@@ -1,63 +1,83 @@
-@if{{ $job_price }}
+@if{{ $order }}
 <form method="post">
   <label for="id">Id</label>
-  <input readonly name="id" id="id" value="{{ $job_price->id() }}" />
+  <input readonly name="id" id="id" value="{{ $order->id() }}" />
+
+  <label for="user_id">Клиент</label>
+  <select name="user_id" id="user_id" required>
+    @foreach{{ $users as $user }} @if{{ $order->user() == $user->username() }}
+    <option value="{{ $user->id() }}" selected>{{ $user->username() }}</option>
+    @else
+    <option value="{{ $user->id() }}">{{ $user->username() }}</option>
+    @endif @endforeach
+  </select>
 
   <label for="manufacturer_id">Производитель</label>
-  <select name="manufacturer_id" id="manufacturer_id" required>
-  </select>
+  <select name="manufacturer_id" id="manufacturer_id" required></select>
 
   <label for="model_id">Модель</label>
   <select name="model_id" id="model_id" required></select>
 
   <label for="job_id">Работа</label>
-  <select name="job_id" id="job_id" required>
-    @foreach{{ $jobs as $job }}
-    @if{{ $job_price->job() == $job->name() }}
-    <option value="{{ $job->id() }}" selected>{{ $job->name() }}</option>
-    @else
-    <option value="{{ $job->id() }}">{{ $job->name() }}</option>
-    @endif
-    @endforeach
-  </select>
+  <select name="job_id" id="job_id" required></select>
 
   <label for="price">Цена</label>
-  <input type="number" name="price" id="price" required placeholder="цена" value="{{ $job_price->price() }}" />
+  <input
+    readonly
+    type="number"
+    name="price"
+    id="price"
+    placeholder="цена"
+    value="{{ $order->price() }}"
+  />
 
-  <input type="submit" value="Изменить" />
+  <label for="commentary">Комментарий</label>
+  <textarea name="commentary" id="commentary" placeholder="комментарий">
+{{ $order->commentary() }}</textarea
+  >
+
+  <input type="submit" value="Добавить" />
 </form>
 @endif
 
 <script>
- "use strict";
+  "use strict";
 
- const models = {};
- @foreach{{ $models as $model }}
- models[{{ $model->id() }}] = {
-   name: "{{ $model->name() }}",
-   manufacturer: "{{ $model->manufacturer() }}"
- };
- @endforeach
+  const current_model = undefined;
 
- const manufacturers = {};
- @foreach{{ $manufacturers as $manufacturer }}
- manufacturers["{{ $manufacturer->name() }}"] = "{{ $manufacturer->id() }}";
- @endforeach
+  const models = {};
+  @foreach{{ $models as $model }}
+  models[{{ $model -> id() }}] = {
+      name: "{{ $model->name() }}",
+      manufacturer: "{{ $model->manufacturer() }}"
+  };
+  @endforeach
 
- const current_model = "{{ $job_price->model() }}";
- const manufacturer_selector = document.getElementById("manufacturer_id");
- for (const [manufacturer, manufacturer_id] of Object.entries(manufacturers)) {
-   const opt = document.createElement("option");
-   opt.textContent = manufacturer;
-   opt.value = manufacturer_id;
-   for (const [model_id, model] of Object.entries(models)) {
-     if (current_model === manufacturer + ' | ' + model.name) {
-       opt.selected = true;
-       break;
-     }
-   }
-   manufacturer_selector.appendChild(opt);
- }
+  const manufacturers = {};
+  @foreach{{ $manufacturers as $manufacturer }}
+  manufacturers["{{ $manufacturer->name() }}"] = "{{ $manufacturer->id() }}";
+  @endforeach
 </script>
 
 <script src="/static/models_populator.js"></script>
+
+<script>
+  "use strict";
+
+  const job_prices = {};
+  @foreach{{ $job_prices as $job_price }}
+  job_prices[{{ $job_price->id() }}] = {
+      price: "{{ $job_price->price() }}",
+      model: "{{ $job_price->model() }}",
+      job: "{{ $job_price->job() }}",
+  };
+  @endforeach
+
+  const jobs = {};
+  @foreach{{ $jobs as $job }}
+  jobs[{{ $job->id() }}] = "{{ $job->name() }}";
+  @endforeach
+</script>
+
+<script src="/static/jobs_populator.js"></script>
+<script src="/static/price_update.js"></script>

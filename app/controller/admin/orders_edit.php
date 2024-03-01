@@ -8,36 +8,42 @@ include_once(__DIR__ . "/../../includes/functions.inc.php");
 
 secure('admin');
 
-$job_price = null;
+$order = null;
 if (!isset($_GET['id'])) {
-    set_message('Цена не выбрана');
+    set_message('Заказ не выбран');
 } else {
-    $job_price = JobPrices::get($_GET['id']);
-    if (!$job_price) {
-        set_message('Цены не существует');
+    $order = Orders::get($_GET['id']);
+    if (!$order) {
+        set_message('Заказ не существует');
     }
 }
 
 if (isset($_POST['job_id'])) {
     try {
-        $job_price->set_job_id($_POST['job_id']);
-        $job_price->set_model_id($_POST['model_id']);
-        $job_price->set_price($_POST['price']);
-        $job_price->update();
-        set_message('Цена изменена ' . $job_price->job() . ' | ' . $job_price->model());
-        redirect(URLS::ADMIN_JOB_PRICES);
+        $order->set_job_id($_POST['job_id']);
+        $order->set_user_id($_POST['job_id']);
+        $order->set_model_id($_POST['model_id']);
+        $order->set_price(JobPrices::find_price($_POST['model_id'], $_POST['job_id']));
+        $order->set_commentary($_POST['commentary']);
+        $order->insert();
+        set_message('Заказ изменен ' . $order->job() . ' | ' . $order->model());
+        redirect(URLS::ADMIN_ORDERS);
     } catch (Throwable $e) {
         set_message($e->getMessage());
     }
 }
 
+$users = User::get_all();
 $manufacturers = Manufacturer::get_all();
 $models = CarModel::get_all();
 $jobs = Job::get_all();
+$job_prices = JobPrices::get_all();
 
-render_panel_page('admin/job_prices_edit', [
-    'job_price' => $job_price,
-    'models' => $models,
+render_panel_page('admin/orders_edit', [
+    'order' => $order,
+    'job_prices' => $job_prices,
+    'users' => $users,
     'manufacturers' => $manufacturers,
+    'models' => $models,
     'jobs' => $jobs,
 ]);
