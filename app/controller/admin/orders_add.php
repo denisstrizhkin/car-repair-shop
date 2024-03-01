@@ -8,15 +8,19 @@ include_once(__DIR__ . "/../../includes/functions.inc.php");
 
 secure('admin');
 
-if (isset($_POST['job_id'])) {
+if (isset($_POST['user_id'])) {
     try {
-        $job_prices = new JobPrices();
-        $job_prices->set_job_id($_POST['job_id']);
-        $job_prices->set_model_id($_POST['model_id']);
-        $job_prices->set_price($_POST['price']);
-        $job_prices->insert();
-        set_message('Добавлена цена ' . $job_prices->job() . ' | ' . $job_prices->model());
-        redirect(URLS::ADMIN_JOB_PRICES);
+        $orders = new Orders();
+        $orders->set_job_id($_POST['job_id']);
+        $orders->set_user_id($_POST['job_id']);
+        $orders->set_model_id($_POST['model_id']);
+        $orders->set_job_id($_POST['model_id']);
+        $orders->set_price(JobPrices::find_price($_POST['model_id'], $_POST['job_id']));
+        $orders->set_commentary($_POST['commentary']);
+        $orders->set_created(date('m/d/Y h:i:s a', time()));
+        $orders->insert();
+        set_message('Добавлен заказ ' . $orders->job() . ' | ' . $orders->model());
+        redirect(URLS::ADMIN_ORDERS);
     } catch (Throwable $e) {
         set_message($e->getMessage());
     }
@@ -26,7 +30,7 @@ $manufacturers = Manufacturer::get_all();
 $models = CarModel::get_all();
 $jobs = Job::get_all();
 
-render_panel_page('admin/job_prices_add', [
+render_panel_page('admin/orders_add', [
     'manufacturers' => $manufacturers,
     'models' => $models,
     'jobs' => $jobs,

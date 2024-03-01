@@ -290,6 +290,20 @@ class JobPrices extends Model
         $this->fields['job_id'] = $job->id();
         $this->job = $job->name();
     }
+
+    static function find_price(int $model_id, int $job_id): int | null {
+        $model = CarModel::get($model_id);
+        $job = Job::get($job_id);
+        foreach (JobPrices::get_all() as $job_price) {
+            if (
+                $job_price->model() == $model->get_model_str() &&
+                $job_price->job() == $job->name()
+            ) {
+                return $job_price->price();
+            }
+        }
+        return null;
+    }
 }
 
 class Orders extends Model
@@ -312,6 +326,10 @@ class Orders extends Model
 
     function created(): string {
         return $this->fields['created'];
+    }
+
+    function set_created(string $date): void {
+        $this->fields['created'] = $date;
     }
 
     function set_commentary(string $commentary): void {
