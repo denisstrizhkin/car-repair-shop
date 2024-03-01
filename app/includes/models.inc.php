@@ -183,6 +183,10 @@ class CarModel extends Model
     protected const string TABLE = "model";
     private string | null $manufacturer = null;
 
+    function get_model_str(): string {
+        return $this->manufacturer() . " | " . $this->name();
+    }
+
     function name(): string
     {
         return $this->fields['name'];
@@ -259,7 +263,7 @@ class JobPrices extends Model
             return $this->model;
         }
         $model = CarModel::get($this->fields['model_id']);
-        $this->model = $this->get_model_str($model);
+        $this->model = $model->get_model_str();
         return $this->model;
     }
 
@@ -267,7 +271,72 @@ class JobPrices extends Model
     {
         $model = CarModel::get($id);
         $this->fields['model_id'] = $model->id();
-        $this->model = $this->get_model_str($model);
+        $this->model = $model->get_model_str();
+    }
+
+    function job(): string
+    {
+        if ($this->job) {
+            return $this->job;
+        }
+        $job = Job::get($this->fields['job_id']);
+        $this->job = $job->name();
+        return $this->job;
+    }
+
+    function set_job_id(int $id): void
+    {
+        $job = Job::get($id);
+        $this->fields['job_id'] = $job->id();
+        $this->job = $job->name();
+    }
+}
+
+class Orders extends Model
+{
+    protected const string TABLE = "orders";
+
+    protected string | null $model = null;
+    protected string | null $job = null;
+    protected string | null $user = null;
+
+    function price(): int
+    {
+        return $this->fields['price'];
+    }
+
+    function set_price(int $price): void
+    {
+        $this->fields['price'] = $price;
+    }
+
+    function created(): string {
+        return $this->fields['created'];
+    }
+
+    function set_commentary(string $commentary): void {
+        $this->fields['commentary'] = $commentary;
+    }
+
+    function commentary(): string {
+        return $this->fields['commentary'];
+    }
+
+    function model(): string
+    {
+        if ($this->model) {
+            return $this->model;
+        }
+        $model = CarModel::get($this->fields['model_id']);
+        $this->model = $model->get_model_str();
+        return $this->model;
+    }
+
+    function set_model_id(int $id): void
+    {
+        $model = CarModel::get($id);
+        $this->fields['model_id'] = $model->id();
+        $this->model = $model->get_model_str();
     }
 
     function job(): string
@@ -287,7 +356,20 @@ class JobPrices extends Model
         $this->job = $job->name();
     }
 
-    function get_model_str(CarModel $model): string {
-        return $model->manufacturer() . " | " . $model->name();
+    function user(): string
+    {
+        if ($this->user) {
+            return $this->user;
+        }
+        $user = User::get($this->fields['user_id']);
+        $this->user = $user->username();
+        return $this->user;
+    }
+
+    function set_user_id(int $id): void
+    {
+        $user = User::get($id);
+        $this->fields['user_id'] = $user->id();
+        $this->user = $user->username();
     }
 }
