@@ -33,4 +33,8 @@ class URLS {
     const ADMIN_JOB_PRICES = URLS::ADMIN_DIR . 'job_prices.php';
     const ADMIN_JOB_PRICES_EDIT = URLS::ADMIN_DIR . 'job_prices_edit.php';
     const ADMIN_JOB_PRICES_ADD = URLS::ADMIN_DIR . 'job_prices_add.php';
+
+    const ADMIN_ORDERS = URLS::ADMIN_DIR . 'orders.php';
+    const ADMIN_ORDERS_EDIT = URLS::ADMIN_DIR . 'orders_edit.php';
+    const ADMIN_ORDERS_ADD = URLS::ADMIN_DIR . 'orders_add.php';
 }
