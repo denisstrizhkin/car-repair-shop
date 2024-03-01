@@ -15,6 +15,8 @@ function redirect_role(): void {
     switch ($user->role()) {
         case 'admin':
             redirect(URLS::ADMIN_PAGE);
+        case 'employee':
+            redirect(URLS::EMPLOYEE_PAGE);
     }
 }
 

@@ -1,0 +1,20 @@
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Работа</th>
+      <th>Модель</th>
+      <th>Цена</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach{{ $job_prices as $job_price }}
+    <tr>
+      <td>{{ $job_price->id() }}</td>
+      <td>{{ $job_price->job() }}</td>
+      <td>{{ $job_price->model() }}</td>
+      <td>{{ $job_price->price() }}</td>
+    </tr>
+    @endforeach
+  </tbody>
+</table>

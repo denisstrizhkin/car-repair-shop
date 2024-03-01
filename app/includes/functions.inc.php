@@ -80,8 +80,19 @@ function render_panel_page(string $panel_view, array $panel_data = []): void
 {
     render('header', ['title' => get_panel_title()]);
     echo get_message();
-    render('admin/panel_nav', [
-        'link_panel' => URLS::ADMIN_PAGE,
+
+    $link = '';
+    switch(current_user()->role()) {
+        case 'admin':
+            $link = URLS::ADMIN_PAGE;
+            break;
+        case 'employee':
+            $link = URLS::EMPLOYEE_PAGE;
+            break;
+    }
+
+    render('/panel_nav', [
+        'link_panel' => $link,
     ]);
     render($panel_view, $panel_data);
     render('footer', []);

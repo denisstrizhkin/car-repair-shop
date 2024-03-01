@@ -8,8 +8,10 @@ class URLS {
     const LOGOUT = URLS::CONTROLLER . 'logout.php';
 
     const ADMIN_DIR = URLS::CONTROLLER . 'admin/';
+    const EMPLOYEE_DIR = URLS::CONTROLLER . 'employee/';
+
     const ADMIN_PAGE = URLS::ADMIN_DIR . 'panel.php';
-    
+
     const ADMIN_USERS = URLS::ADMIN_DIR . 'users.php';
     const ADMIN_USERS_EDIT = URLS::ADMIN_DIR . 'users_edit.php';
     const ADMIN_USERS_ADD = URLS::ADMIN_DIR . 'users_add.php';
@@ -37,4 +39,10 @@ class URLS {
     const ADMIN_ORDERS = URLS::ADMIN_DIR . 'orders.php';
     const ADMIN_ORDERS_EDIT = URLS::ADMIN_DIR . 'orders_edit.php';
     const ADMIN_ORDERS_ADD = URLS::ADMIN_DIR . 'orders_add.php';
+
+    const EMPLOYEE_PAGE = URLS::EMPLOYEE_DIR . 'panel.php';
+
+    const EMPLOYEE_JOB = URLS::EMPLOYEE_DIR . 'job.php';
+    const EMPLOYEE_JOB_PRICES = URLS::EMPLOYEE_DIR . 'job_prices.php';
+    const EMPLOYEE_ORDERS = URLS::EMPLOYEE_DIR . 'orders.php';
 }

@@ -1,0 +1,18 @@
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Работа</th>
+      <th>Описание</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach{{ $jobs as $job }}
+    <tr>
+      <td>{{ $job->id() }}</td>
+      <td>{{ $job->name() }}</td>
+      <td>{{ $job->description() }}</td>
+    </tr>
+    @endforeach
+  </tbody>
+</table>
