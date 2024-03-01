@@ -26,7 +26,9 @@
 <script>
  "use strict";
 
- let models = {};
+ const current_model = undefined;
+
+ const models = {};
  @foreach{{ $models as $model }}
  models[{{ $model->id() }}] = {
    name: "{{ $model->name() }}",
@@ -34,28 +36,11 @@
  };
 
  @endforeach
- let manufacturers = {};
+ const manufacturers = {};
  @foreach{{ $manufacturers as $manufacturer }}
  manufacturers["{{ $manufacturer->name() }}"] = "{{ $manufacturer->id() }}";
  @endforeach
+</script>
 
- const manufactuer_selector = document.getElementById("manufacturer_id");
- let model_selector = document.getElementById("model_id");
-
- const populate_model_selector = () => {
-   for (const [model_id, model] of Object.entries(models)) {
-     if (manufacturers[model.manufacturer] === manufactuer_selector.value) {
-       let opt = document.createElement("option");
-       opt.value = model_id;
-       opt.textContent = model.name;
-       model_selector.appendChild(opt);
-     }
-   }
- };
-
- populate_model_selector();
- manufactuer_selector.addEventListener('change', ev => {
-   model_selector.innerHTML = "";
-   populate_model_selector();
- });
+<script src="/static/models_populator.js">
 </script>
