@@ -10,23 +10,23 @@ secure('admin');
 
 if (isset($_GET['delete'])) {
     try {
-        $role = Role::get($_GET['delete']);
-        if ($role) {
-            set_message('Удалена роль ' . $role->name());
-            $role->delete();
+        $job_prices = JobPrices::get($_GET['delete']);
+        if ($job_prices) {
+            set_message('Удалена цена ' . $job_prices->job() . ' | ' . $job_prices->model());
+            $job_prices->delete();
         } else {
-            set_message('Роль не найдена');
+            set_message('Цена не найдена');
         }
     } catch (Throwable $e) {
         set_message($e->getMessage());
     }
 }
 
-$roles = Role::get_all();
+$job_prices = JobPrices::get_all();
 
-render_panel_page('admin/roles', [
-    'roles' => $roles,
-    'link_edit' => URLS::ADMIN_ROLES_EDIT,
-    'link_add' => URLS::ADMIN_ROLES_ADD,
-    'link_delete' => URLS::ADMIN_ROLES,
+render_panel_page('admin/job_prices', [
+    'job_prices' => $job_prices,
+    'link_edit' => URLS::ADMIN_JOB_PRICES_EDIT,
+    'link_add' => URLS::ADMIN_JOB_PRICES_ADD,
+    'link_delete' => URLS::ADMIN_JOB_PRICES,
 ]);

@@ -235,3 +235,59 @@ class Job extends Model
         $this->fields['description'] = $description;
     }
 }
+
+class JobPrices extends Model
+{
+    protected const string TABLE = "job_prices";
+
+    protected string | null $model = null;
+    protected string | null $job = null;
+
+    function price(): string
+    {
+        return $this->fields['price'];
+    }
+
+    function set_price(string $name): void
+    {
+        $this->fields['price'] = $name;
+    }
+
+    function model(): string
+    {
+        if ($this->model) {
+            return $this->model;
+        }
+        $model = CarModel::get($this->fields['model_id']);
+        $this->model = $this->get_model_str($model);
+        return $this->model;
+    }
+
+    function set_model_id(int $id): void
+    {
+        $model = CarModel::get($id);
+        $this->fields['model_id'] = $model->id();
+        $this->model = $this->get_model_str($model);
+    }
+
+    function job(): string
+    {
+        if ($this->job) {
+            return $this->job;
+        }
+        $job = Job::get($this->fields['job_id']);
+        $this->job = $job->name();
+        return $this->job;
+    }
+
+    function set_job_id(int $id): void
+    {
+        $job = Job::get($id);
+        $this->fields['job_id'] = $job->id();
+        $this->job = $job->name();
+    }
+
+    function get_model_str(CarModel $model): string {
+        return $model->manufacturer() . " | " . $model->name();
+    }
+}

@@ -2,20 +2,28 @@
   <thead>
     <tr>
       <th>Id</th>
-      <th>Роль</th>
+      <th>Работа</th>
+      <th>Модель</th>
+      <th>Цена</th>
     </tr>
   </thead>
   <tbody>
-    @foreach{{ $roles as $role }}
+    @foreach{{ $job_prices as $job_price }}
     <tr>
       <td>
-        {{ $role->id() }}
+        {{ $job_price->id() }}
       </td>
       <td>
-        {{ $role->name() }}
+        {{ $job_price->job() }}
       </td>
-      <td><a href="{{ $link_edit . '?id=' . $role->id() }}">Изменить</a> |
-        <a href="{{ $link_delete . '?delete=' . $role->id() }}">Удалить</a>
+      <td>
+        {{ $job_price->model() }}
+      </td>
+      <td>
+        {{ $job_price->price() }}
+      </td>
+      <td><a href="{{ $link_edit . '?id=' . $job_price->id() }}">Изменить</a> |
+        <a href="{{ $link_delete . '?delete=' . $job_price->id() }}">Удалить</a>
       </td>
     </tr>
     @endforeach
