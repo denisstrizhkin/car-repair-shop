@@ -6,28 +6,18 @@
       <th>Почта</th>
       <th>Роль</th>
       <th>Номер телефона</th>
-      <th>Изменить | Удалить</th>
     </tr>
   </thead>
   <tbody>
     @foreach{{ $users as $user }}
     <tr>
+      <td>{{ $user->id() }}</td>
+      <td>{{ $user->username() }}</td>
+      <td>{{ $user->email() }}</td>
+      <td>{{ $user->role() }}</td>
+      <td>{{ $user->phone() }}</td>
       <td>
-        {{ $user->id() }}
-      </td>
-      <td>
-        {{ $user->username() }}
-      </td>
-      <td>
-        {{ $user->email() }}
-      </td>
-      <td>
-        {{ $user->role() }}
-      </td>
-      <td>
-        {{ $user->phone() }}
-      </td>
-      <td><a href="{{ $link_edit . '?id=' . $user->id() }}">Изменить</a> |
+        <a href="{{ $link_edit . '?id=' . $user->id() }}">Изменить</a> |
         <a href="{{ $link_delete . '?delete=' . $user->id() }}">Удалить</a>
       </td>
     </tr>
