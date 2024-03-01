@@ -29,8 +29,12 @@ if (isset($_POST['user_id'])) {
 $manufacturers = Manufacturer::get_all();
 $models = CarModel::get_all();
 $jobs = Job::get_all();
+$job_prices = JobPrices::get_all();
+$users = User::get_all();
 
 render_panel_page('admin/orders_add', [
+    'job_prices' => $job_prices,
+    'users' => $users,
     'manufacturers' => $manufacturers,
     'models' => $models,
     'jobs' => $jobs,
