@@ -16,9 +16,9 @@
             const opt = document.createElement("option");
             opt.value = job_id;
             opt.textContent = job_name;
-            // if (current_model === model.manufacturer + " | " + model.name) {
-            //   opt.selected = true;
-            // }
+            if (job_name === current_job) {
+              opt.selected = true;
+            }
             job_selector.appendChild(opt);
           }
         }

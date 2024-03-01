@@ -12,7 +12,7 @@ if (isset($_POST['user_id'])) {
     try {
         $order = new Orders();
         $order->set_job_id($_POST['job_id']);
-        $order->set_user_id($_POST['job_id']);
+        $order->set_user_id($_POST['user_id']);
         $order->set_model_id($_POST['model_id']);
         $order->set_price(JobPrices::find_price($_POST['model_id'], $_POST['job_id']));
         $order->set_commentary($_POST['commentary']);

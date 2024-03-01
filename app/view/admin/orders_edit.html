@@ -36,14 +36,15 @@
 {{ $order->commentary() }}</textarea
   >
 
-  <input type="submit" value="Добавить" />
+  <input type="submit" value="Изменить" />
 </form>
 @endif
 
 <script>
   "use strict";
 
-  const current_model = undefined;
+  const current_model = "{{ $order->model() }}";
+  const current_job = "{{ $order->job() }}";
 
   const models = {};
   @foreach{{ $models as $model }}
@@ -59,6 +60,7 @@
   @endforeach
 </script>
 
+<script src="/static/manufacturers_populator.js"></script>
 <script src="/static/models_populator.js"></script>
 
 <script>

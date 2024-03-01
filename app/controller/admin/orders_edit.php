@@ -21,11 +21,11 @@ if (!isset($_GET['id'])) {
 if (isset($_POST['job_id'])) {
     try {
         $order->set_job_id($_POST['job_id']);
-        $order->set_user_id($_POST['job_id']);
+        $order->set_user_id($_POST['user_id']);
         $order->set_model_id($_POST['model_id']);
         $order->set_price(JobPrices::find_price($_POST['model_id'], $_POST['job_id']));
         $order->set_commentary($_POST['commentary']);
-        $order->insert();
+        $order->update();
         set_message('Заказ изменен ' . $order->job() . ' | ' . $order->model());
         redirect(URLS::ADMIN_ORDERS);
     } catch (Throwable $e) {
