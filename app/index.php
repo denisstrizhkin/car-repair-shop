@@ -10,6 +10,7 @@ $user = current_user();
 render('header', ['title' => CONSTANTS::TITLE . " | Логин"]);
 echo get_message();
 render("index_nav", [
-        'link_login' => URLS::LOGIN,
-    ]);
+    'title' => CONSTANTS::TITLE,
+    'link_login' => URLS::LOGIN,
+]);
 render('footer', []);
