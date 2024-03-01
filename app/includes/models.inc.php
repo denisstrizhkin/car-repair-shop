@@ -243,12 +243,12 @@ class JobPrices extends Model
     protected string | null $model = null;
     protected string | null $job = null;
 
-    function price(): string
+    function price(): int
     {
         return $this->fields['price'];
     }
 
-    function set_price(string $name): void
+    function set_price(int $name): void
     {
         $this->fields['price'] = $name;
     }

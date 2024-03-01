@@ -1,7 +1,61 @@
 <form method="post">
 
-  <label for="name">Роль</label>
-  <input type="name" name="name" id="name" required placeholder="роль" />
+  <label for="manufacturer_id">Производитель</label>
+  <select name="manufacturer_id" id="manufacturer_id" required>
+    @foreach{{ $manufacturers as $manufacturer }}
+    <option value="{{ $manufacturer->id() }}">{{ $manufacturer->name() }}</option>
+    @endforeach
+  </select>
+
+  <label for="model_id">Модель</label>
+  <select name="model_id" id="model_id" required></select>
+
+  <label for="job_id">Работа</label>
+  <select name="job_id" id="job_id" required>
+    @foreach{{ $jobs as $job }}
+    <option value="{{ $job->id() }}">{{ $job->name() }}</option>
+    @endforeach
+  </select>
+
+  <label for="price">Цена</label>
+  <input type="number" name="price" id="price" required placeholder="цена" />
 
   <input type="submit" value="Добавить" />
 </form>
+
+<script>
+ "use strict";
+
+ let models = {};
+ @foreach{{ $models as $model }}
+ models[{{ $model->id() }}] = {
+   name: "{{ $model->name() }}",
+   manufacturer: "{{ $model->manufacturer() }}"
+ };
+
+ @endforeach
+ let manufacturers = {};
+ @foreach{{ $manufacturers as $manufacturer }}
+ manufacturers["{{ $manufacturer->name() }}"] = "{{ $manufacturer->id() }}";
+ @endforeach
+
+ const manufactuer_selector = document.getElementById("manufacturer_id");
+ let model_selector = document.getElementById("model_id");
+
+ const populate_model_selector = () => {
+   for (const [model_id, model] of Object.entries(models)) {
+     if (manufacturers[model.manufacturer] === manufactuer_selector.value) {
+       let opt = document.createElement("option");
+       opt.value = model_id;
+       opt.textContent = model.name;
+       model_selector.appendChild(opt);
+     }
+   }
+ };
+
+ populate_model_selector();
+ manufactuer_selector.addEventListener('change', ev => {
+   model_selector.innerHTML = "";
+   populate_model_selector();
+ });
+</script>

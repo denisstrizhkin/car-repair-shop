@@ -12,6 +12,7 @@ render('header', ['title' => get_panel_title()]);
 echo get_message();
 render('admin/panel', [
     'user_name' => current_user()->username(),
+    'link_logout' => URLS::LOGOUT,
     'link_users' => URLS::ADMIN_USERS,
     'link_roles' => URLS::ADMIN_ROLES,
     'link_manufacturer' => URLS::ADMIN_MANUFACTURER,
