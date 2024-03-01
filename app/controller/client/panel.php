@@ -6,7 +6,15 @@ include_once(__DIR__ . "/../../includes/config.inc.php");
 include_once(__DIR__ . "/../../includes/database.inc.php");
 include_once(__DIR__ . "/../../includes/functions.inc.php");
 
-secure('employee');
+secure('client');
+
+$orders = Orders::get_all();
+$client_orders = [];
+foreach($orders as $order) {
+    if ($order->user() == current_user()->username()) {
+        array_push($client_orders, $order);
+    }
+}
 
 render('header', ['title' => get_panel_title()]);
 render('/panel_main_nav', [
@@ -15,9 +23,7 @@ render('/panel_main_nav', [
     'link_logout' => URLS::LOGOUT,
 ]);
 echo get_message();
-render('employee/panel', [
-    'link_job' => URLS::EMPLOYEE_JOB,
-    'link_job_prices' => URLS::EMPLOYEE_JOB_PRICES,
-    'link_orders' => URLS::EMPLOYEE_ORDERS,
+render('client/panel', [
+    'orders' => $client_orders,
 ]);
 render('footer');

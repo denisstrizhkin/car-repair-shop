@@ -9,6 +9,7 @@ class URLS {
 
     const ADMIN_DIR = URLS::CONTROLLER . 'admin/';
     const EMPLOYEE_DIR = URLS::CONTROLLER . 'employee/';
+    const CLIENT_DIR = URLS::CONTROLLER . 'client/';
 
     const ADMIN_PAGE = URLS::ADMIN_DIR . 'panel.php';
 
@@ -45,4 +46,6 @@ class URLS {
     const EMPLOYEE_JOB = URLS::EMPLOYEE_DIR . 'job.php';
     const EMPLOYEE_JOB_PRICES = URLS::EMPLOYEE_DIR . 'job_prices.php';
     const EMPLOYEE_ORDERS = URLS::EMPLOYEE_DIR . 'orders.php';
+
+    const CLIENT_PAGE = URLS::CLIENT_DIR . 'panel.php';
 }

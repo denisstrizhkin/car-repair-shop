@@ -17,6 +17,8 @@ function redirect_role(): void {
             redirect(URLS::ADMIN_PAGE);
         case 'employee':
             redirect(URLS::EMPLOYEE_PAGE);
+        case 'client':
+            redirect(URLS::CLIENT_PAGE);
     }
 }
 

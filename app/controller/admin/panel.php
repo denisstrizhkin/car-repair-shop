@@ -9,10 +9,13 @@ include_once(__DIR__ . "/../../includes/functions.inc.php");
 secure('admin');
 
 render('header', ['title' => get_panel_title()]);
-echo get_message();
-render('admin/panel', [
+render('/panel_main_nav', [
+    'title' => CONSTANTS::TITLE,
     'user_name' => current_user()->username(),
     'link_logout' => URLS::LOGOUT,
+]);
+echo get_message();
+render('admin/panel', [
     'link_users' => URLS::ADMIN_USERS,
     'link_roles' => URLS::ADMIN_ROLES,
     'link_manufacturer' => URLS::ADMIN_MANUFACTURER,
