@@ -89,9 +89,6 @@ const populate_jobs = (model) => {
 };
 
 const create_order = (job_id, model_id) => {
-  if (!is_user) {
-    window.location = "/controller/login.php";
-  }
   const form = document.createElement("form");
   document.body.appendChild(form);
   form.method = "post";

@@ -11,6 +11,10 @@ function secure(string $role = ''): void
         redirect(URLS::ROOT);
     }
 
+    if ($role == '') {
+        return;
+    }
+
     if ($role != $user->role()) {
         set_message('У вашей роли недостаточно прав!');
         redirect(URLS::ROOT);
