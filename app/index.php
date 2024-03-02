@@ -7,6 +7,7 @@ include_once(__DIR__ . "/includes/database.inc.php");
 include_once(__DIR__ . "/includes/functions.inc.php");
 
 $user = current_user();
+$is_user = $user != null;
 
 $manufacturers = Manufacturer::get_all();
 $models = CarModel::get_all();
@@ -20,6 +21,7 @@ render("index_nav", [
     'link_login' => URLS::LOGIN,
 ]);
 render('index', [
+    'is_user' => $is_user,
     'manufacturers' => $manufacturers,
     'models' => $models,
     'jobs' => $jobs,

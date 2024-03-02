@@ -89,7 +89,27 @@ const populate_jobs = (model) => {
 };
 
 const create_order = (job_id, model_id) => {
-  console.log("create order: ", job_id, model_id);
+  if (!is_user) {
+    window.location = "/controller/login.php";
+  }
+  const form = document.createElement("form");
+  document.body.appendChild(form);
+  form.method = "post";
+  form.action = "/controller/new_order.php";
+
+  const job = document.createElement("input");
+  job.type = "hidden";
+  job.name = "job_id";
+  job.value = job_id;
+  form.appendChild(job);
+
+  const model = document.createElement("input");
+  model.type = "hidden";
+  model.name = "model_id";
+  model.value = model_id;
+  form.appendChild(model);
+
+  form.submit();
 };
 
 const default_manufacturer = Object.keys(manufacturers)[0];
