@@ -1,1 +1,48 @@
+#manufacturers {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
 
+#models {
+    display: grid;
+    gap: 1em;
+    grid-template-columns: repeat(auto-fit, minmax(200px, max-content));
+    justify-content: center;
+}
+
+#jobs {
+    margin-top: 1.5em;
+}
+
+.car-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #0096bfab;
+    border-radius: 0.5em;
+    position: relative;
+}
+
+.car-card:hover::after {
+    visibility: visible;
+}
+
+.car-card::after {
+    content: "Выбрать";
+    position: absolute;
+    background: #12191f;
+    width: 100px;
+    text-align: center;
+    padding: 0.75em 1.5em;
+    top: 30%;
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+    visibility: hidden;
+    border-radius: 0.5em;
+}
+
+.car-card__img {
+    border-radius: 0.25em;
+}

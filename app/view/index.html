@@ -1,6 +1,49 @@
-<nav>
-  <a>
-    <h1>{{ $title }}</h1>
-  </a>
-  <a href="{{ $link_login }}">Личный кабинет</a>
-</nav>
+<ul id="manufacturers"></ul>
+<div id="models"></div>
+
+<table id="jobs">
+  <thead>
+    <tr>
+      <th>Работа</th>
+      <th>Описание</th>
+      <th>Цена</th>
+    </tr>
+  </thead>
+  <tbody id="jobs-body"></tbody>
+</table>
+
+<script>
+  "use_strict";
+
+  const models = {};
+  @foreach{{ $models as $model }}
+  models[{{ $model -> id() }}] = {
+      name: "{{ $model->name() }}",
+      manufacturer: "{{ $model->manufacturer() }}"
+  };
+  @endforeach
+
+  const manufacturers = {};
+  @foreach{{ $manufacturers as $manufacturer }}
+  manufacturers["{{ $manufacturer->name() }}"] = "{{ $manufacturer->id() }}";
+  @endforeach
+
+  const job_prices = {};
+  @foreach{{ $job_prices as $job_price }}
+  job_prices[{{ $job_price->id() }}] = {
+      price: "{{ $job_price->price() }}",
+      model: "{{ $job_price->model() }}",
+      job: "{{ $job_price->job() }}",
+  };
+  @endforeach
+
+  const jobs = {};
+  @foreach{{ $jobs as $job }}
+  jobs[{{ $job->id() }}] = {
+    name: "{{ $job->name() }}",
+    description: "{{ $job->description() }}",
+  };
+  @endforeach
+</script>
+
+<script src="/static/index.js"></script>
