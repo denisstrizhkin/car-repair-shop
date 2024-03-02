@@ -1,0 +1,15 @@
+<p>Заказ: {{ $order_str }}</p>
+<form method="post">
+  <input type="hidden" name="user_id" value="{{ $user_id }}" required />
+  <input type="hidden" name="job_id" value="{{ $job_id }}" required />
+  <input type="hidden" name="model_id" value="{{ $model_id }}" required />
+
+  <label for="commentary">Добавить Комментарий</label>
+  <textarea
+    name="commentary"
+    id="commentary"
+    placeholder="комментарий"
+  ></textarea>
+
+  <input type="submit" value="Оставить заказ" />
+</form>

@@ -29,7 +29,7 @@ function set_message(string $message): void
 function get_message(): void
 {
     if (isset($_SESSION['message'])) {
-        echo '<p>' . $_SESSION['message'] . '</p>';
+        echo '<p id="info_message">' . $_SESSION['message'] . '</p>';
         unset($_SESSION['message']);
     }
 }

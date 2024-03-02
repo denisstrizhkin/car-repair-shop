@@ -45,10 +45,10 @@ if (isset($_POST['email'])) {
 redirect_role();
 
 render('header', ['title' => CONSTANTS::TITLE . " | Логин"]);
-echo get_message();
 render("index_nav", [
         'title' => CONSTANTS::TITLE,
         'link_login' => URLS::LOGIN,
     ]);
+echo get_message();
 render('login', []);
 render('footer', []);
