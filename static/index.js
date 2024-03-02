@@ -72,6 +72,7 @@ const populate_jobs = (model) => {
 
         const price = document.createElement("td");
         price.textContent = job_price.price;
+        row.classList.add("row");
         row.appendChild(price);
 
         row.onclick = () => {
