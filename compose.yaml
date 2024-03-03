@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   web:
     depends_on:
@@ -12,7 +12,8 @@ services:
       - ./static:/static
   php:
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     build:
       context: .
       dockerfile: PHP.Dockerfile
@@ -29,7 +30,8 @@ services:
       context: .
       dockerfile: schema.Dockerfile
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     environment:
       - DB_HOST=mysql
       - DB_PORT=3306
@@ -45,6 +47,11 @@ services:
       - MYSQL_DATABASE=$DB_NAME
       - MYSQL_USER=$DB_USER
       - MYSQL_PASSWORD=$DB_USER_PASSWORD
+    healthcheck:
+      test: '/usr/bin/mysql --user="${MYSQL_USER}" --password="${MYSQL_PASSWORD}" --execute "SHOW DATABASES;"'
+      interval: 3s
+      timeout: 1s
+      retries: 5
     volumes:
       - db:/var/lib/mysql
 
