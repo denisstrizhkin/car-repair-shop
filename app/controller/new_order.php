@@ -8,7 +8,7 @@ include_once(__DIR__ . "/../includes/functions.inc.php");
 
 secure();
 
-if ($_POST['user_id']) {
+if (isset($_POST['user_id'])) {
     try {
         $order = new Orders();
         $order->set_job_id($_POST['job_id']);
