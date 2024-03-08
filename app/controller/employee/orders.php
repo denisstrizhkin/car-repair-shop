@@ -12,4 +12,5 @@ $orders = Orders::get_all();
 
 render_panel_page('employee/orders', [
     'orders' => $orders,
+    'link_send' => URLS::EMPLOYEE_SEND,
 ]);

@@ -32,6 +32,8 @@ function mailer_send(
     $mail->addAddress($address);
     $mail->isHTML(false);
 
+    $mail->CharSet = 'UTF-8';
+    $mail->setLanguage('ru');
     $mail->Subject = $subject;
     $mail->Body = $body;
 

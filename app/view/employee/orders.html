@@ -20,6 +20,9 @@
       <td>{{ $order->price() }}</td>
       <td>{{ $order->commentary() }}</td>
       <td>{{ $order->created() }}</td>
+      <td>
+        <a href="{{ $link_send . '?id=' . $order->id() }}">Отправить</a>
+      </td>
     </tr>
     @endforeach
   </tbody>

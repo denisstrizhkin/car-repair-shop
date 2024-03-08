@@ -43,6 +43,7 @@ class URLS {
     const ADMIN_ORDERS_ADD = URLS::ADMIN_DIR . 'orders_add.php';
 
     const EMPLOYEE_PAGE = URLS::EMPLOYEE_DIR . 'panel.php';
+    const EMPLOYEE_SEND = URLS::EMPLOYEE_DIR . 'send.php';
 
     const EMPLOYEE_JOB = URLS::EMPLOYEE_DIR . 'job.php';
     const EMPLOYEE_JOB_PRICES = URLS::EMPLOYEE_DIR . 'job_prices.php';
