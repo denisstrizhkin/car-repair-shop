@@ -19,5 +19,6 @@ render('employee/panel', [
     'link_job' => URLS::EMPLOYEE_JOB,
     'link_job_prices' => URLS::EMPLOYEE_JOB_PRICES,
     'link_orders' => URLS::EMPLOYEE_ORDERS,
+    'link_chart' => URLS:: EMPLOYEE_CHART,
 ]);
 render('footer');

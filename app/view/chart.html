@@ -1,0 +1,68 @@
+<div id="chart-container">
+  <canvas id="chart"></canvas>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+<script>
+  "use strict";
+
+  const orders = [];
+  @foreach{{ $orders as $order }}
+    orders.push("{{ $order->user() }}");
+  @endforeach
+
+  const map = {};
+  let index = 0;
+  orders.forEach(o => {
+    if (map[o] === undefined) {
+        map[o] = 1;
+    } else {
+        map[o] += 1;
+    }
+  });
+
+  const users = [];
+  const counts = [];
+  for(const [user, count] of Object.entries(map)) {
+      users.push(user);
+      counts.push(count);
+  }
+
+  console.log(users);
+  console.log(counts);
+
+  const getRandomColor = () => {
+    var letters = '0123456789ABCDE'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+  const colors = [];
+  for (let i = 0; i < counts.length; i += 1) {
+      colors.push(getRandomColor());
+  }
+
+  new Chart("chart", {
+    type: "bar",
+    data: {
+        labels: users,
+        datasets: [{
+            label: "Количество заказов пользователей",
+            backgroundColor: colors,
+            data: counts,
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        },
+    }
+  });
+</script>
