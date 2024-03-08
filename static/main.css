@@ -57,3 +57,14 @@
 .car-card__img {
     border-radius: 0.25em;
 }
+
+#chart-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#chart-container canvas {
+    width: min(600px, 100%);
+    aspect-ratio: 1/1;
+}

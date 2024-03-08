@@ -23,5 +23,6 @@ render('admin/panel', [
     'link_job' => URLS::ADMIN_JOB,
     'link_job_prices' => URLS::ADMIN_JOB_PRICES,
     'link_orders' => URLS::ADMIN_ORDERS,
+    'link_chart' => URLS::ADMIN_CHART,
 ]);
 render('footer');
