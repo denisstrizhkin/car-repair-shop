@@ -29,4 +29,5 @@ render_panel_page('admin/orders', [
     'link_edit' => URLS::ADMIN_ORDERS_EDIT,
     'link_add' => URLS::ADMIN_ORDERS_ADD,
     'link_delete' => URLS::ADMIN_ORDERS,
+    'link_send' => URLS::ADMIN_SEND,
 ]);

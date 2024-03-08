@@ -13,29 +13,19 @@
   <tbody>
     @foreach{{ $orders as $order }}
     <tr>
+      <td>{{ $order->id() }}</td>
+      <td>{{ $order->user() }}</td>
+      <td>{{ $order->model() }}</td>
+      <td>{{ $order->job() }}</td>
+      <td>{{ $order->price() }}</td>
+      <td>{{ $order->commentary() }}</td>
+      <td>{{ $order->created() }}</td>
       <td>
-        {{ $order->id() }}
-      </td>
-      <td>
-        {{ $order->user() }}
-      </td>
-      <td>
-        {{ $order->model() }}
-      </td>
-      <td>
-        {{ $order->job() }}
-      </td>
-      <td>
-        {{ $order->price() }}
-      </td>
-      <td>
-        {{ $order->commentary() }}
-      </td>
-      <td>
-        {{ $order->created() }}
-      </td>
-      <td><a href="{{ $link_edit . '?id=' . $order->id() }}">Изменить</a> |
+        <a href="{{ $link_edit . '?id=' . $order->id() }}">Изменить</a> |
         <a href="{{ $link_delete . '?delete=' . $order->id() }}">Удалить</a>
+      </td>
+      <td>
+        <a href="{{ $link_send . '?id=' . $order->id() }}">Отправить</a> |
       </td>
     </tr>
     @endforeach

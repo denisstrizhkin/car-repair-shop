@@ -1,0 +1,37 @@
+<form method="post">
+  <input
+    type="hidden"
+    name="user_id"
+    id="user_id"
+    value="{{ $user->id() }}"
+    required
+  />
+  <input
+    type="hidden"
+    name="order_id"
+    id="order_id"
+    value="{{ $order->id() }}"
+    required
+  />
+
+  <label for="subject">Тема</label>
+  <input
+    type="text"
+    name="subject"
+    readonly
+    value="{{ $order->model() . ' | ' . $order->created() }}"
+  />
+
+  <label for="receiver">Кому</label>
+  <input type="email" name="receiver" value="{{ $user->email() }}" readonly />
+
+  <label for="body">Текст Сообщения</label>
+  <textarea
+    name="body"
+    id="body"
+    placeholder="текст сообщения"
+    required
+  ></textarea>
+
+  <input type="submit" value="Отправить" />
+</form>

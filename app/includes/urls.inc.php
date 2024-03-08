@@ -12,6 +12,7 @@ class URLS {
     const CLIENT_DIR = URLS::CONTROLLER . 'client/';
 
     const ADMIN_PAGE = URLS::ADMIN_DIR . 'panel.php';
+    const ADMIN_SEND = URLS::ADMIN_DIR . 'send.php';
 
     const ADMIN_USERS = URLS::ADMIN_DIR . 'users.php';
     const ADMIN_USERS_EDIT = URLS::ADMIN_DIR . 'users_edit.php';
